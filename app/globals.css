@@ -2,6 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --space-blue: #001F3F;
+  --galactic-purple: #3D3C6C;
+  --starship-silver: #A0A0A0;
+  --rebel-red: #C8102E;
+  --slate-gray: #2F4F4F;
+  --charcoal-gray: #36454F;
+  --galactic-gray: #6C6C6C;
+  --cyan-laser: #00FFFF;
+  --red-laser: #FF0000;
+  --neon-green: #39FF14;
+  --bright-green: #00FF00;
+  --warning-yellow: #FFFF00; 
+  --light-blue: #ADD8E6;
+  --muted-silver: #C0C0C0;
+}
+
+/* ==========================================================================
+   Text Colors
+   ========================================================================== */
+
+.text-primary {
+  color: var(--starship-silver); /* Primary Text */
+}
+
+.text-secondary {
+  color: var(--galactic-gray); /* Secondary Text */
+}
+
+.text-highlight {
+  color: var(--warning-yellow); /* Highlight Text */
+}
+
+.text-muted {
+  color: var(--muted-silver); /* Muted Text */
+}
+
+/* ==========================================================================
+   Background Colors
+   ========================================================================== */
+
+.bg-main {
+  background-color: var(--space-blue); /* Main Background */
+}
+
+.bg-card {
+  background-color: var(--slate-gray); /* Card Background */
+}
+
+.bg-header {
+  background-color: var(--galactic-purple); /* Header Background */
+}
+
+.bg-footer {
+  background-color: var(--charcoal-gray); /* Footer Background */
+}
+
+.bg-highlight {
+  background-color: var(--warning-yellow); /* Yellow Highlight Background */
+}
+
+/* ==========================================================================
+   Border Colors
+   ========================================================================== */
+
+.border-main {
+  border-color: var(--starship-silver); /* Borders */
+}
+
+.border-highlight {
+  border-color: var(--warning-yellow); /* Yellow Highlight Borders */
+}
+
+/* ==========================================================================
+   Shadows
+   ========================================================================== */
+
+.shadow-main {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Main Shadows */
+}
+
+/* ==========================================================================
+   Laser Colors
+   ========================================================================== */
+
+.laser-standard {
+  color: var(--cyan-laser); /* Standard Laser */
+}
+
+.laser-critical {
+  color: var(--red-laser); /* Critical Hit Laser */
+}
+
+.laser-highlight {
+  color: var(--neon-green); /* Laser Highlights */
+}
+
+/* ==========================================================================
+   Buttons & Links
+   ========================================================================== */
+
+.button-primary {
+  background-color: var(--galactic-purple); /* Primary Button */
+  color: var(--starship-silver); /* Button Text */
+}
+
+.button-highlight {
+  background-color: var(--warning-yellow); /* Yellow Highlight Button */
+  color: var(--space-blue); /* Button Text */
+}
+
+.link {
+  color: var(--rebel-red); /* Link */
+}
+
+.link-hover {
+  color: var(--warning-yellow); /* Link Hover */
+}
+
+/* ==========================================================================
+   Miscellaneous
+   ========================================================================== */
+
+.text-error {
+  color: var(--red-laser); /* Error Messages */
+}
+
+.text-success {
+  color: var(--bright-green); /* Success Messages */
+}
+
+.text-warning {
+  color: var(--warning-yellow); /* Warning Messages */
+}
+
+
 .offscreen {
   position: absolute;
   left: -10000px;
