@@ -1,14 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import HomePage from "@/components/HomePage/HomePage";
-import StarWarsOpening from "@/components/Opening/StarWarsOpening";
 import Opening from "@/components/Opening/Opening";
-import { Howl } from "howler";
-
-const backgroundMusicUrl =
-  "https://ia803204.us.archive.org/16/items/StarWarsThemeSongByJohnWilliams/Star%20Wars%20Theme%20Song%20By%20John%20Williams.mp3";
-
-// https://4kwallpapers.com/images/wallpapers/stars-galaxy-3440x1440-10307.jpg
+import Music from "@/components/Music/Music";
 
 export default function Home() {
   const [showHomePage, setShowHomePage] = useState<boolean>(false);
@@ -27,15 +21,10 @@ export default function Home() {
 
   return (
     <>
-      {/* Background audio element */}
-      <audio ref={audioRef} src={backgroundMusicUrl} loop hidden />
-
-      <div
-        className={`absolute w-full bg-cover h-screen bg-[url("https://4kwallpapers.com/images/wallpapers/stars-galaxy-3440x1440-10307.jpg")] z-[-1]`}
-      ></div>
+      <Music audioRef={audioRef} />
 
       {/* Start button to trigger audio and show main content */}
-      {!audioStarted ? (
+      {/* {!audioStarted ? (
         <div className="flex justify-center items-center h-screen">
           <button
             onClick={handleStartAudio}
@@ -48,7 +37,8 @@ export default function Home() {
         <Opening onAnimationComplete={() => setShowHomePage(true)} />
       ) : (
         <HomePage />
-      )}
+      )} */}
+      <HomePage />
     </>
   );
 }

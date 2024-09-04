@@ -48,7 +48,7 @@ export const StarWars = ({ onAnimationCompleteStarWars }: any) => {
           onAnimationComplete={onAnimationCompleteStarWars}
         >
           <motion.div variants={lineVariants} className="font-extrabold">
-            STAR WARS
+            CHANU WARS
           </motion.div>
         </motion.div>
       </div>
