@@ -5,6 +5,9 @@ import Header from "@/components/OnlineShop/Header";
 import ProductList from "@/components/OnlineShop/ProductList";
 import { useState } from "react";
 
+import { CartProvider } from "@/context/CartProvider";
+import { ProductsProvider } from "@/context/ProductsProvider";
+
 const page = () => {
   const [viewCart, setViewCart] = useState<boolean>(false);
 
@@ -12,11 +15,15 @@ const page = () => {
 
   const content = (
     <>
-      <Header viewCart={viewCart} setViewCart={setViewCart} />
+      <CartProvider>
+        <ProductsProvider>
+          <Header viewCart={viewCart} setViewCart={setViewCart} />
 
-      {pageContent}
+          {pageContent}
 
-      <Footer viewCart={viewCart} />
+          <Footer viewCart={viewCart} />
+        </ProductsProvider>
+      </CartProvider>
     </>
   );
 

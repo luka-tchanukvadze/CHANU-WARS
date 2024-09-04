@@ -1,10 +1,43 @@
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const gridContainerVariants: any = {
+  hidden: { opacity: 0, transform: "rotate(360deg)" },
+  show: {
+    opacity: 1,
+    transform: "rotate(0deg)",
+    transition: {
+      staggerChildren: 0.3,
+      duration: 1,
+    },
+  },
+};
+
+const gridSquareVariants: any = {
+  hidden: { opacity: 0, transform: "rotate(-360deg)" },
+  show: {
+    opacity: 1,
+    transform: "rotate(0deg)",
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 const HomePage = () => {
   return (
-    <nav className="grid grid-cols-1 gap-10 mx-8 text-center items-center justify-center h-screen md:grid-cols-2 xl:grid-cols-3 2xl:mx-40">
+    <motion.nav
+      variants={gridContainerVariants}
+      initial="hidden"
+      animate="show"
+      className="grid grid-cols-1 gap-10 mx-8 text-center items-center justify-center h-screen md:grid-cols-2 xl:grid-cols-3 2xl:mx-40"
+    >
       {/* Info Card */}
-      <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-purple-500 to-indigo-500 py-12 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
+      <motion.div
+        variants={gridSquareVariants}
+        className="relative flex flex-col justify-center items-center bg-gradient-to-r from-purple-500 to-indigo-500 py-12 rounded-lg shadow-lg "
+      >
         <h2 className="text-2xl font-bold text-white mb-2">Unlock the Lore</h2>
         <p className="text-white text-opacity-80">
           Delve deep into the galaxy's most guarded secrets.
@@ -15,9 +48,12 @@ const HomePage = () => {
         >
           Click
         </Link>
-      </div>
+      </motion.div>
       {/* Shop Card */}
-      <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-green-500 to-teal-500 py-12 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300">
+      <motion.div
+        variants={gridSquareVariants}
+        className="relative flex flex-col justify-center items-center bg-gradient-to-r from-green-500 to-teal-500 py-12 rounded-lg shadow-lg "
+      >
         <h2 className="text-2xl font-bold text-white mb-2">
           Exclusive Merchandise
         </h2>
@@ -30,10 +66,13 @@ const HomePage = () => {
         >
           Click
         </Link>
-      </div>
+      </motion.div>
 
       {/* Game Card */}
-      <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-blue-500 to-cyan-500 py-12 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300 md:col-span-2 xl:col-span-1">
+      <motion.div
+        variants={gridSquareVariants}
+        className="relative flex flex-col justify-center items-center bg-gradient-to-r from-blue-500 to-cyan-500 py-12 rounded-lg shadow-lg  md:col-span-2 xl:col-span-1"
+      >
         <h2 className="text-2xl font-bold text-white mb-2">
           Space Combat Awaits
         </h2>
@@ -46,8 +85,8 @@ const HomePage = () => {
         >
           Click
         </Link>
-      </div>
-    </nav>
+      </motion.div>
+    </motion.nav>
   );
 };
 export default HomePage;
