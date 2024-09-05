@@ -10,11 +10,9 @@
   },
   "dependencies": {
     "framer-motion": "^11.3.31",
-    "howler": "^2.2.4",
     "next": "14.2.7",
     "react": "^18",
-    "react-dom": "^18",
-    "react-howler": "^5.2.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/howler": "^2.2.11",
