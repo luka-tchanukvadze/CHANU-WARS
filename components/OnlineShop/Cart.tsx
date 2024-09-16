@@ -15,7 +15,7 @@ const Cart = () => {
   const pageContent = confirm ? (
     <h2>Thank for your order.</h2>
   ) : (
-    <div className="text-white">
+    <div className="text-white ">
       <h2 className="offscreen">Cart</h2>
       <ul className="cart">
         {cart.map((item) => {

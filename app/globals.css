@@ -182,7 +182,6 @@ flex-flow: column nowrap;
 }
 
 .header {
-  /* background-color: #fff; */
   color: white;
   position: sticky;
   top: 0;

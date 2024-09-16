@@ -29,7 +29,7 @@ const Product = ({
   const itemInCart = inCart ? "=> item in Cart" : null;
 
   const content = (
-    <article className="product text-white">
+    <article className="product text-white bg-card">
       <h3>{product.name}</h3>
       <Image
         width={1000}

@@ -19,7 +19,7 @@ const page = () => {
         <ProductsProvider>
           <Header viewCart={viewCart} setViewCart={setViewCart} />
 
-          {pageContent}
+          <section className="min-h-screen">{pageContent}</section>
 
           <Footer viewCart={viewCart} />
         </ProductsProvider>

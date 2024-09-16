@@ -12,7 +12,37 @@
       },
       {
           "sku": "item0003",
-          "name": "Deluxe Widget",
+          "name": "something 1",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 2",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 3",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 4",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 5",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 6",
+          "price": 29.99
+      },
+      {
+          "sku": "item0003",
+          "name": "something 7",
           "price": 29.99
       }
   ]
