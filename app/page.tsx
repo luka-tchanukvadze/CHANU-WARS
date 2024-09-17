@@ -8,11 +8,13 @@ export default function Home() {
 
   return (
     <>
-      {!showHomePage ? (
+      {/* {!showHomePage ? (
         <Opening onAnimationComplete={() => setShowHomePage(true)} />
       ) : (
         <HomePage />
-      )}
+      )} */}
+
+      <HomePage />
     </>
   );
 }

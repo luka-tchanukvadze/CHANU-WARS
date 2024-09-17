@@ -13,37 +13,35 @@ const Cart = () => {
   };
 
   const pageContent = confirm ? (
-    <h2>Thank for your order.</h2>
+    <h2 className="text-white">Thank you for your order.</h2>
   ) : (
-    <div className="text-white ">
-      <h2 className="offscreen">Cart</h2>
-      <ul className="cart">
-        {cart.map((item) => {
-          return (
-            <CartlineItem
-              key={item.sku}
-              item={item}
-              dispatch={dispatch}
-              REDUCER_ACTIONS={REDUCER_ACTIONS}
-            />
-          );
-        })}
+    <div className="text-white">
+      <h2 className="sr-only">Cart</h2>
+      <ul className="space-y-2">
+        {cart.map((item) => (
+          <CartlineItem
+            key={item.sku}
+            item={item}
+            dispatch={dispatch}
+            REDUCER_ACTIONS={REDUCER_ACTIONS}
+          />
+        ))}
       </ul>
-      <div className="cart_totals">
+      <div className="space-y-2 mt-4">
         <p>Total Items: {totalItems}</p>
         <p>Total Price: {totalPrice}</p>
         <button
-          className="cart_submit"
+          className="bg-blue-500 text-white py-2 px-4 rounded shadow-neon hover:bg-blue-600"
           disabled={!totalItems}
           onClick={onSubmitOrder}
         >
-          Place order
+          Place Order
         </button>
       </div>
     </div>
   );
 
-  const content = <main className="main main--cart">{pageContent}</main>;
+  const content = <main className="p-4">{pageContent}</main>;
 
   return content;
 };

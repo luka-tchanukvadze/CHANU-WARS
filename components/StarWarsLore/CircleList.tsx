@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const items = [
@@ -13,13 +13,59 @@ const items = [
   "Star Wars Gaming",
 ];
 
-const duration = 16; // Duration of the circular movement
-
 const CircleList = () => {
-  // Calculate the radius based on viewport width and height
-  const radius = Math.min(window.innerWidth, window.innerHeight) * 0.3; // Adjust as needed
+  const [radius, setRadius] = useState(
+    Math.min(window.innerWidth, window.innerHeight) * 0.3
+  );
+  const [scattered, setScattered] = useState(false);
+  const [randomPositions, setRandomPositions] = useState<
+    { x: number; y: number }[]
+  >([]);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
-  // Memoize the positions to avoid recalculating on every render
+  // Update window size on resize for responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+      setRadius(Math.min(window.innerWidth, window.innerHeight) * 0.3);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Generate random scatter positions within the viewport bounds with margins
+  const generateRandomPositions = () => {
+    const itemWidth = 200; // Approximate width of each item
+    const itemHeight = 80; // Approximate height of each item
+    const margin = 2; // 2px margin from edges
+
+    const maxOffsetX = (windowSize.width - itemWidth - 2 * margin) / 2;
+    const maxOffsetY = (windowSize.height - itemHeight - 2 * margin) / 2;
+
+    return items.map(() => ({
+      x: Math.random() * (maxOffsetX * 2) - maxOffsetX,
+      y: Math.random() * (maxOffsetY * 2) - maxOffsetY,
+    }));
+  };
+
+  // Set up interval to rescatter items every 3 seconds
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRandomPositions(generateRandomPositions());
+    }, 3000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [windowSize]); // Re-run if windowSize changes
+
+  // Calculate initial circular positions
   const positions = useMemo(() => {
     return items.map((_, index) => {
       const angle = (index / items.length) * 2 * Math.PI;
@@ -30,37 +76,52 @@ const CircleList = () => {
     });
   }, [items.length, radius]);
 
-  const containerVariants: any = {
-    hidden: { opacity: 1 },
+  // Framer motion variants for the container and items
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 2, // Stagger the start of each item
+        staggerChildren: 0.3,
       },
     },
   };
 
   const itemVariants: any = {
-    hidden: (index: number) => positions[index],
-    visible: {
-      x: [0, radius, 0, -radius, 0], // Circular movement
-      y: [radius, 0, -radius, 0, radius], // Circular movement
+    hidden: { opacity: 0, scale: 0 },
+    visible: (index: number) => ({
+      opacity: 1,
+      scale: 1,
+      x: scattered ? randomPositions[index]?.x : positions[index]?.x,
+      y: scattered ? randomPositions[index]?.y : positions[index]?.y,
       transition: {
-        duration: duration,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "linear",
+        type: "spring",
+        stiffness: 80,
+        damping: 20,
+        duration: 1.5,
       },
+    }),
+    hover: {
+      scale: 1.2,
+      transition: { type: "spring", stiffness: 400, damping: 10 },
     },
   };
 
   return (
     <div
-      className="relative w-full h-full flex justify-center items-center "
+      className="relative w-full min-h-screen flex justify-center items-center"
       style={{ overflow: "hidden" }}
+      onMouseEnter={() => {
+        setScattered(true);
+        setRandomPositions(generateRandomPositions()); // Initial scatter on hover
+      }} // Trigger scattering on hover
     >
       <motion.div
-        style={{ width: `${2 * radius}px`, height: `${2 * radius}px` }} // Set the size of the container to fit the circle
+        style={{
+          width: `${2 * radius}px`,
+          height: `${2 * radius}px`,
+          position: "relative",
+        }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -69,21 +130,24 @@ const CircleList = () => {
           <motion.div
             key={item}
             variants={itemVariants}
-            custom={index} // Pass the index as a custom prop to use in variants
+            custom={index}
+            whileHover="hover"
             style={{
               position: "absolute",
               top: "50%",
-              left: "25%",
-              right: "25%",
-              bottom: "50%",
+              left: "50%",
               transform: "translate(-50%, -50%)",
               textAlign: "center",
               color: "white",
-              borderRadius: "8px",
-              backgroundColor: "rgb(207, 180, 180)",
-              boxShadow: "0 4px 6px rgba(243, 223, 223, 0.861)",
+              backgroundColor: "rgba(20, 20, 20, 0.8)",
+              padding: "20px",
+              borderRadius: "12px",
+              boxShadow: "0 12px 24px rgba(0, 0, 0, 0.8), 0 0 8px #00FF00", // Neon glow
               cursor: "pointer",
-              fontSize: "calc(10px + 1vw)",
+              fontSize: "1.2rem",
+              backdropFilter: "blur(4px)",
+              transition: "transform 0.2s ease",
+              whiteSpace: "nowrap", // Prevent text wrapping
             }}
             onClick={() => alert(`Clicked on: ${item}`)}
           >

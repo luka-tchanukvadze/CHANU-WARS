@@ -10,10 +10,10 @@ const Header = ({ viewCart, setViewCart }: PropsType) => {
   const { totalItems, totalPrice } = useCart();
 
   const content = (
-    <header className="header bg-header">
-      <div className="header__title-bar">
-        <h1 className="text-yellow-500 font-extrabold">CHANU SHOP</h1>
-        <div className="header__price-box">
+    <header className="bg-gray-900 text-white p-4 sticky top-0 z-10 border-b border-gray-700">
+      <div className="flex justify-between items-center">
+        <h1 className="text-yellow-400 font-extrabold">CHANU SHOP</h1>
+        <div className="text-right">
           <p>Total items: {totalItems}</p>
           <p>Total Price: {totalPrice}</p>
         </div>

@@ -6,20 +6,23 @@ type PropsType = {
 
 const Footer = ({ viewCart }: PropsType) => {
   const { totalItems, totalPrice } = useCart();
-
   const year: number = new Date().getFullYear();
 
   const pageContent = viewCart ? (
-    <p className="text-white">Shopping Cart copy; {year}</p>
+    <p className="text-gray-300">Shopping Cart &copy; {year}</p>
   ) : (
-    <div className="bg-footer">
-      <p className="text-white">Total ITems: {totalItems}</p>
-      <p className="text-white">Total Price: {totalPrice}</p>
-      <p className="text-white">shopping Cart copy; {year}</p>
+    <div className=" text-gray-300">
+      <p>Total Items: {totalItems}</p>
+      <p>Total Price: {totalPrice}</p>
+      <p>Shopping Cart &copy; {year}</p>
     </div>
   );
 
-  const content = <footer className="footer">{pageContent}</footer>;
+  const content = (
+    <footer className="flex-grow flex flex-col justify-end p-4 bg-gray-900">
+      {pageContent}
+    </footer>
+  );
 
   return content;
 };

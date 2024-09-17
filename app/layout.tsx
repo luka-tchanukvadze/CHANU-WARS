@@ -30,7 +30,7 @@ export default function RootLayout({
         <MainLayout>
           <Background />
 
-          <Music audioRef={audioRef} />
+          {/* <Music audioRef={audioRef} />
           {!audioStarted ? (
             <StartMusic
               audioRef={audioRef}
@@ -42,7 +42,8 @@ export default function RootLayout({
               {<ControlMusic audioRef={audioRef} audioStarted={audioStarted} />}
               {children}
             </>
-          )}
+          )} */}
+          {children}
         </MainLayout>
       </body>
     </html>

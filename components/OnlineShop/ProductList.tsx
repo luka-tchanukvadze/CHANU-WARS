@@ -1,6 +1,6 @@
+"use client";
 import useCart from "@/hooks/useCart";
 import useProducts from "@/hooks/useProducts";
-import { UseProductsContextType } from "@/context/ProductsProvider";
 import { ReactElement } from "react";
 import Product from "./Product";
 
@@ -8,7 +8,9 @@ const ProductList = () => {
   const { dispatch, REDUCER_ACTIONS, cart } = useCart();
   const { products } = useProducts();
 
-  let pageContent: ReactElement | ReactElement[] = <p>Loading ... </p>;
+  let pageContent: ReactElement | ReactElement[] = (
+    <p className="text-white">Loading ... </p>
+  );
 
   if (products?.length) {
     pageContent = products.map((product) => {
@@ -26,7 +28,11 @@ const ProductList = () => {
     });
   }
 
-  const content = <main className="main main--products">{pageContent}</main>;
+  const content = (
+    <main className="flex flex-wrap justify-between gap-6 p-6">
+      {pageContent}
+    </main>
+  );
 
   return content;
 };

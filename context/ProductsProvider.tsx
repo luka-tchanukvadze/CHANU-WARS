@@ -25,32 +25,32 @@ const initState: ProductType[] = [
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0004",
     name: "something 2",
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0005",
     name: "something 3",
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0006",
     name: "something 4",
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0007",
     name: "something 5",
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0008",
     name: "something 6",
     price: 29.99,
   },
   {
-    sku: "item0003",
+    sku: "item0009",
     name: "something 7",
     price: 29.99,
   },
