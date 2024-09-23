@@ -1,4 +1,10 @@
+import GameContainer from "@/components/Game/GameContainer";
+
 const page = () => {
-  return <div>page</div>;
+  return (
+    <>
+      <GameContainer />
+    </>
+  );
 };
 export default page;
