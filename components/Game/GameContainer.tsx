@@ -94,14 +94,14 @@ const GameContainer = () => {
               health={firstShip?.defense?.hp}
               damage={firstShip?.combat_stats?.laser_damage}
               ShipImg={ShipImg}
-            />
-            {/* <div className="bg-red-300 absolute left-0 top-[50%] ">
+            >
+              <div className="bg-red-300 absolute left-0 top-[50%] ">
                 <LaserCanvas draw={draw} />
               </div>
               <div className="bg-red-300 absolute right-0 top-[50%] ">
                 <LaserCanvas draw={draw} />
-              </div> */}
-            {/* </ShipAndLasersOne> */}
+              </div>
+            </ShipAndLasersOne>
           </div>
         </div>
 
