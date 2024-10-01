@@ -21,7 +21,7 @@ const page = () => {
 
           <section className="min-h-screen">{pageContent}</section>
 
-          <Footer viewCart={viewCart} />
+          <Footer />
         </ProductsProvider>
       </CartProvider>
     </>

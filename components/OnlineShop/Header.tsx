@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Nav from "./Nav";
 import useCart from "@/hooks/useCart";
 
@@ -10,18 +11,24 @@ const Header = ({ viewCart, setViewCart }: PropsType) => {
   const { totalItems, totalPrice } = useCart();
 
   const content = (
-    <header className="bg-gray-900 text-white p-4 sticky top-0 z-10 border-b border-gray-700">
+    <header className="bg-gray-950 text-white p-4 sticky top-0 z-10 border-b border-gray-700">
       <div className="flex justify-between items-center">
-        <h1 className="text-yellow-400 font-extrabold">CHANU SHOP</h1>
+        <Link
+          href="/"
+          className="text-yellow-400 font-extrabold text-xl sm:text-2xl lg:text-3xl"
+        >
+          CHANU SHOP
+        </Link>
         <div className="text-right">
-          <p>Total items: {totalItems}</p>
-          <p>Total Price: {totalPrice}</p>
+          <p className="text-gray-200">Total items: {totalItems}</p>
+          <p className="text-gray-300">Total Price: {totalPrice} credits</p>
+          <Nav viewCart={viewCart} setViewCart={setViewCart} />
         </div>
       </div>
-      <Nav viewCart={viewCart} setViewCart={setViewCart} />
     </header>
   );
 
   return content;
 };
+
 export default Header;

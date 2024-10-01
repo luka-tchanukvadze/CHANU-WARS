@@ -29,7 +29,7 @@ const Cart = () => {
       </ul>
       <div className="space-y-2 mt-4">
         <p>Total Items: {totalItems}</p>
-        <p>Total Price: {totalPrice}</p>
+        <p>Total Price: {`${totalPrice} credits`}</p>
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded shadow-neon hover:bg-blue-600"
           disabled={!totalItems}

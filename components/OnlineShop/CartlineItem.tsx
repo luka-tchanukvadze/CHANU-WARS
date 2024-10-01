@@ -53,17 +53,18 @@ const CartlineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
       <Image
         width={1000}
         height={1000}
-        src={a}
+        src={item.sku}
         alt={item.name}
         className="cart__img"
       />
       {/* <img src={img} alt={item.name} className="cart__img" /> */}
       <div aria-label="Item Name">{item.name}</div>
       <div aria-label="Price Per Item">
-        {new Intl.NumberFormat("en-US", {
+        {/* {new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
-        }).format(item.price)}
+        }).format(item.price)} */}
+        {`${item.price} credits`}
       </div>
 
       <label htmlFor="itemQty" className="offscreen">
@@ -81,10 +82,11 @@ const CartlineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
       </select>
 
       <div className="cart__item-subtotal" aria-label="Line Item Subtotal">
-        {new Intl.NumberFormat("en-US", {
+        {/* {new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
-        }).format(lineTotal)}
+        }).format(lineTotal)} */}
+        {`${lineTotal} total credits`}
       </div>
 
       <button
