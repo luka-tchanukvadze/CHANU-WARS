@@ -12,7 +12,7 @@ const page = () => {
         Go Home
       </Link>
       <div className="absolute text-white left-0 top-6">
-        click on the screent to start playing
+        click on the screen to start playing
       </div>
       <div className="absolute text-white left-0 top-12">
         use: w,a,s,d to move
