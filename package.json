@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/material": "^6.1.2",
+    "@radix-ui/react-dialog": "^1.1.2",
     "@react-spring/three": "^9.7.4",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.7",
