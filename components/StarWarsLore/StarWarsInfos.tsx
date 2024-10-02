@@ -62,7 +62,7 @@ const StarWarsInfos = () => {
   const [selectedTitle, setSelectedTitle] = useState<any>(null);
 
   return (
-    <div className="flex justify-center items-center relative h-screen w-full overflow-hidden  perspective">
+    <div className="flex justify-center items-center  h-screen w-full  perspective">
       <div
         className={`flex justify-center items-center
         }`}
