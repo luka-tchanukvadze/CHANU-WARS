@@ -63,7 +63,6 @@ const StarWarsInfos = () => {
 
   return (
     <div className="flex justify-center items-center relative h-screen w-full overflow-hidden  perspective">
-      {/* Animation part removed */}
       <div
         className={`flex justify-center items-center
         }`}
