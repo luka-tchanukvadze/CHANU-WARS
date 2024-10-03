@@ -32,7 +32,10 @@ const InfoHeader = () => {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-black font-extrabold text-2xl">
+          <Link
+            href="/StarWarsLore"
+            className="text-black font-extrabold text-2xl"
+          >
             Star Wars Lore
           </Link>
 
