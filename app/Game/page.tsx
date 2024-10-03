@@ -7,17 +7,17 @@ const page = () => {
       {/* <GameContainer /> */}
       <Link
         href="/"
-        className="absolute text-yellow-500 font-extrabold left-0 top-0"
+        className="absolute left-2 top-0 text-white font-extrabold text-lg  rounded-lg shadow-md  transition-all duration-300 hover:scale-110"
       >
         Go Home
       </Link>
-      <div className="absolute text-white left-0 top-6">
+      <div className="absolute text-white left-2 top-6">
         click on the screen to start playing
       </div>
-      <div className="absolute text-white left-0 top-12">
+      <div className="absolute text-white left-2 top-12">
         use: w,a,s,d to move
       </div>
-      <div className="absolute text-white left-0 top-16">
+      <div className="absolute text-white left-2 top-16">
         use: space to shoot
       </div>
       <iframe
