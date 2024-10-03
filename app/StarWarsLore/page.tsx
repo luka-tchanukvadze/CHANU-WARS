@@ -4,7 +4,7 @@ import StarWarsInfos from "@/components/StarWarsLore/StarWarsInfos";
 const page = () => {
   return (
     <>
-      <InfoHeader />
+      {/* <InfoHeader /> */}
       <StarWarsInfos />
     </>
   );

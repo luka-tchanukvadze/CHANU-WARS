@@ -45,13 +45,13 @@ const InfoHeader = () => {
               Home
             </Link>
             <Link
-              href="/characters"
+              href="/StarWarsLore/FavCharacters"
               className="text-black font-semibold hover:text-yellow-100"
             >
               My Favourite Characters
             </Link>
             <Link
-              href="/add"
+              href="/StarWarsLore/AddInfo"
               className="text-black font-semibold hover:text-yellow-100"
             >
               Add Your Own Information
@@ -104,13 +104,17 @@ const InfoHeader = () => {
                 Home
               </Link>
               <Link
-                href="/characters"
+                href="/StarWarsLore/FavCharacters"
                 className="text-white"
                 onClick={toggleMenu}
               >
                 My Favourite Characters
               </Link>
-              <Link href="/add" className="text-white" onClick={toggleMenu}>
+              <Link
+                href="/StarWarsLore/AddInfo"
+                className="text-white"
+                onClick={toggleMenu}
+              >
                 Add Your Own Information
               </Link>
             </div>
