@@ -2,8 +2,8 @@ import { ChangeEvent, ReactElement, memo } from "react";
 import { CartItemType } from "@/context/CartProvider";
 import { ReducerAction } from "@/context/CartProvider";
 import { ReducerActionType } from "@/context/CartProvider";
-import a from "@/public/item0001.jpg";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type PropsType = {
   item: CartItemType;
@@ -11,7 +11,7 @@ type PropsType = {
   REDUCER_ACTIONS: ReducerActionType;
 };
 
-const CartlineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
+const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
   const img: string = new URL(`@/public/${item.sku}.jpg`, import.meta.url).href;
 
   const lineTotal: number = item.qty * item.price;
@@ -22,10 +22,6 @@ const CartlineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
     { length: highestQty },
     (_, i) => i + 1
   );
-
-  // const optionValues: number[] = [...Array(highestQty).keys()].map(
-  //   (i) => i + 1
-  // );
 
   const options: ReactElement[] = optionValues.map((val) => {
     return (
@@ -48,59 +44,63 @@ const CartlineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
       payload: item,
     });
 
-  const content = (
-    <li className="cart__item">
-      <Image
-        width={1000}
-        height={1000}
-        src={item.sku}
-        alt={item.name}
-        className="cart__img"
-      />
-      {/* <img src={img} alt={item.name} className="cart__img" /> */}
-      <div aria-label="Item Name">{item.name}</div>
-      <div aria-label="Price Per Item">
-        {/* {new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(item.price)} */}
-        {`${item.price} credits`}
+  return (
+    <motion.li
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-br from-gray-900 to-gray-800 p-4 rounded-xl shadow-lg mb-4 border border-yellow-500/30"
+    >
+      <div className="flex items-center mb-4 sm:mb-0">
+        <Image
+          width={80}
+          height={80}
+          src={item.sku}
+          alt={item.name}
+          className="rounded-lg shadow-md border-2 border-blue-500/50 mr-4"
+        />
+        <div>
+          <h3 className="text-yellow-400 font-bold text-lg mb-1">
+            {item.name}
+          </h3>
+          <p className="text-blue-300 text-sm">
+            Price: <span className="text-cyan-400">{item.price} credits</span>
+          </p>
+        </div>
       </div>
 
-      <label htmlFor="itemQty" className="offscreen">
-        Item Quantity
-      </label>
-      <select
-        name="itemQty"
-        id="itemQty"
-        className="cart__select"
-        value={item.qty}
-        aria-label="Item Quantity"
-        onChange={onChangeQty}
-      >
-        {options}
-      </select>
+      <div className="flex items-center space-x-4">
+        <label htmlFor={`itemQty-${item.sku}`} className="sr-only">
+          Item Quantity
+        </label>
+        <select
+          name={`itemQty-${item.sku}`}
+          id={`itemQty-${item.sku}`}
+          className="bg-gray-700 text-white rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={item.qty}
+          onChange={onChangeQty}
+        >
+          {options}
+        </select>
 
-      <div className="cart__item-subtotal" aria-label="Line Item Subtotal">
-        {/* {new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(lineTotal)} */}
-        {`${lineTotal} total credits`}
+        <p className="text-yellow-300 text-sm sm:text-base">
+          Total:{" "}
+          <span className="text-yellow-400 font-bold">{lineTotal} credits</span>
+        </p>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-3 py-1 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          onClick={onRemoveFromCart}
+          aria-label={`Remove ${item.name} from cart`}
+        >
+          X
+        </motion.button>
       </div>
-
-      <button
-        className="cart__button"
-        aria-label="Remove Item From Cart"
-        title="Remove Item From Cart"
-        onClick={onRemoveFromCart}
-      >
-        X
-      </button>
-    </li>
+    </motion.li>
   );
-
-  return content;
 };
 
 function areItemsEqual(
@@ -115,8 +115,8 @@ function areItemsEqual(
   });
 }
 
-const MemoizedCartLineItem = memo<typeof CartlineItem>(
-  CartlineItem,
+const MemoizedCartLineItem = memo<typeof CartLineItem>(
+  CartLineItem,
   areItemsEqual
 );
 

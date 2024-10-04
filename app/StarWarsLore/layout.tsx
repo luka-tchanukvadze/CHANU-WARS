@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import InfoHeader from "@/components/StarWarsLore/InfoHeader";
+import InfoFooter from "@/components/StarWarsLore/InfoFooter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
     <>
       <InfoHeader />
       {children}
+      <InfoFooter />
     </>
   );
 }

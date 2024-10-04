@@ -28,7 +28,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <MainLayout>
-          <Background />
+          <div className="z-0">
+            <Background />
+          </div>
 
           {/* <Music audioRef={audioRef} />
           {!audioStarted ? (
@@ -43,7 +45,7 @@ export default function RootLayout({
               {children}
             </>
           )} */}
-          {children}
+          <div className="z-10">{children}</div>
         </MainLayout>
       </body>
     </html>

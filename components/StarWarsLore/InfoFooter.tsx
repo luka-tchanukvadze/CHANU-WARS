@@ -1,11 +1,13 @@
 "use client";
-import { motion } from "framer-motion";
 
-const Footer = () => {
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+const InfoFooter = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-gray-950 border-t border-yellow-500/30">
+    <footer className="bg-gradient-to-b from-yellow-600 to-yellow-700 border-t border-black/30">
       <div className="container mx-auto px-4 py-6 sm:py-8 lg:py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -13,16 +15,19 @@ const Footer = () => {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center justify-center space-y-4"
         >
-          <p className="text-sm sm:text-base lg:text-lg text-yellow-400 font-semibold font-starwars tracking-wider">
-            CHANU SHOP
-          </p>
-          <p className="text-xs sm:text-sm text-blue-300">
-            Your Galactic Marketplace
+          <Link
+            href="/StarWarsLore"
+            className="text-sm sm:text-base lg:text-lg text-black font-extrabold tracking-wider"
+          >
+            STAR WARS LORE
+          </Link>
+          <p className="text-xs sm:text-sm text-yellow-900">
+            Your Gateway to a Galaxy Far, Far Away
           </p>
           <div className="flex space-x-4">
             <a
               href="#"
-              className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+              className="text-black hover:text-yellow-100 transition-colors duration-300"
             >
               <span className="sr-only">LinkedIn</span>
               <svg
@@ -36,7 +41,7 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+              className="text-black hover:text-yellow-100 transition-colors duration-300"
             >
               <span className="sr-only">GitHub</span>
               <svg
@@ -53,8 +58,8 @@ const Footer = () => {
               </svg>
             </a>
           </div>
-          <p className="text-xs sm:text-sm text-gray-400">
-            &copy; {currentYear} CHANU SHOP. All rights reserved across the
+          <p className="text-xs sm:text-sm text-black">
+            &copy; {currentYear} STAR WARS LORE. All rights reserved across the
             galaxy.
           </p>
         </motion.div>
@@ -63,4 +68,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default InfoFooter;
