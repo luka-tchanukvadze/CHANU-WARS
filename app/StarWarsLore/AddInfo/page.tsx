@@ -1,4 +1,10 @@
+import AddInfo from "@/components/StarWarsLore/AddYourInfo/AddInfo";
+
 function page() {
-  return <div className="text-white">page</div>;
+  return (
+    <>
+      <AddInfo />
+    </>
+  );
 }
 export default page;
