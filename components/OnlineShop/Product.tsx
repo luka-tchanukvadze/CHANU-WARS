@@ -47,7 +47,7 @@ const Product = ({
             height={1000}
             src={product.sku}
             alt={product.name}
-            className="object-cover rounded-lg shadow-md border-2 border-blue-500/50"
+            className="object-cover rounded-lg shadow-md border-2 border-blue-500/50 h-32 sm:h-44"
           />
         </motion.div>
         <p className="text-xs sm:text-sm lg:text-base mb-2 text-blue-300">

@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <>
       <InfoHeader />
-      {children}
+      <div className="min-h-screen">{children}</div>
       <InfoFooter />
     </>
   );
