@@ -132,7 +132,7 @@ export default function RandomInfos() {
   const memoizedArchiveEntries = useMemo(() => archiveEntries, []);
 
   return (
-    <div className="min-h-screen bg-black bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center bg-blend-overlay text-blue-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
+    <div className="min-h-screen bg-cover bg-center bg-blend-overlay text-blue-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
