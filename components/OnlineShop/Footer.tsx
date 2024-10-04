@@ -21,7 +21,7 @@ const Footer = () => {
           </p>
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://www.linkedin.com/in/luka-tchanukvadze-600211257"
               className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
             >
               <span className="sr-only">LinkedIn</span>
@@ -35,7 +35,7 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://github.com/luka-tchanukvadze"
               className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
             >
               <span className="sr-only">GitHub</span>

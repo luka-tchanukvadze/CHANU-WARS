@@ -26,7 +26,7 @@ const InfoFooter = () => {
           </p>
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://www.linkedin.com/in/luka-tchanukvadze-600211257"
               className="text-black hover:text-yellow-100 transition-colors duration-300"
             >
               <span className="sr-only">LinkedIn</span>
@@ -40,7 +40,7 @@ const InfoFooter = () => {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://github.com/luka-tchanukvadze"
               className="text-black hover:text-yellow-100 transition-colors duration-300"
             >
               <span className="sr-only">GitHub</span>
