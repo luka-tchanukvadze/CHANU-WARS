@@ -32,7 +32,7 @@ export default function RootLayout({
             <Background />
           </div>
 
-          {/* <Music audioRef={audioRef} />
+          <Music audioRef={audioRef} />
           {!audioStarted ? (
             <StartMusic
               audioRef={audioRef}
@@ -44,8 +44,8 @@ export default function RootLayout({
               {<ControlMusic audioRef={audioRef} audioStarted={audioStarted} />}
               {children}
             </>
-          )} */}
-          <div className="z-10">{children}</div>
+          )}
+          {/* <div className="z-10">{children}</div> */}
         </MainLayout>
       </body>
     </html>
