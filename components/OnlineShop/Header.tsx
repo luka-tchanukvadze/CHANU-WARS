@@ -13,12 +13,21 @@ const Header = ({ viewCart, setViewCart }: PropsType) => {
   return (
     <header className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-2 px-4 sticky top-0 z-10 border-b border-yellow-500/30 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <Link
-          href="/"
-          className="text-yellow-400 font-extrabold text-xl sm:text-2xl font-starwars tracking-wider hover:text-yellow-300 transition-colors duration-300"
-        >
-          CHANU SHOP
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link
+            href="/OnlineShop"
+            className="text-yellow-400 font-extrabold text-xl sm:text-2xl font-starwars tracking-wider hover:text-yellow-300 transition-colors duration-300"
+          >
+            CHANU SHOP
+          </Link>
+          <Link
+            href="/"
+            className="text-blue-300 font-bold text-lg sm:text-xl hover:text-blue-200 transition-colors duration-300"
+          >
+            HOME
+          </Link>
+        </div>
+
         <div className="flex items-center space-x-4">
           <div className="hidden sm:block">
             <p className="text-blue-300 text-sm">
