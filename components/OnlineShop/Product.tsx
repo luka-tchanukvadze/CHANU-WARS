@@ -5,6 +5,7 @@ import { ReducerActionType, ReducerAction } from "@/context/CartProvider";
 import { ReactElement, memo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ShoppingCart, Star } from "lucide-react";
 
 type PropsType = {
   product: ProductType;
@@ -19,83 +20,71 @@ const Product = ({
   REDUCER_ACTIONS,
   inCart,
 }: PropsType): ReactElement => {
-  const img: string = `@/public/${product.sku}.jpg`;
-
   const onAddToCart = () =>
     dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
 
-  const itemInCart = inCart ? "=> Item in Cart" : null;
-
   const content = (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-br from-gray-900 to-gray-800 p-4 sm:p-6 lg:p-8 rounded-2xl shadow-[0_0_15px_rgba(255,232,31,0.3)] flex flex-col justify-between items-center text-center h-full transform hover:scale-105 transition-transform duration-300 border border-yellow-500/30"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
     >
-      <div>
-        <h3 className="font-bold text-xl sm:text-2xl lg:text-3xl mb-2 sm:mb-4 text-yellow-400 font-starwars tracking-wider">
+      <div className="relative">
+        <Image
+          width={400}
+          height={300}
+          src={`${product.sku}`}
+          alt={product.name}
+          className="w-full h-48 object-cover"
+        />
+        {inCart && (
+          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            In Cart
+          </div>
+        )}
+      </div>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
           {product.name}
         </h3>
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mb-4 mx-auto"
-        >
-          <Image
-            width={1000}
-            height={1000}
-            src={product.sku}
-            alt={product.name}
-            className="object-cover rounded-lg shadow-md border-2 border-blue-500/50 h-32 sm:h-44"
-          />
-        </motion.div>
-        <p className="text-xs sm:text-sm lg:text-base mb-2 text-blue-300">
-          Type: <span className="text-cyan-400">{product.type}</span>
-        </p>
-        <p className="text-xs sm:text-sm lg:text-base mb-4 text-gray-300">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           {product.description}
         </p>
-      </div>
-      <div>
-        <p className="text-lg sm:text-xl lg:text-2xl font-semibold mb-4 text-yellow-300">
-          {product.price} credits
-        </p>
-        {itemInCart && (
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-sm text-green-400 mb-2"
+        <div className="flex justify-between items-center">
+          <span className="text-xl font-bold text-gray-900 dark:text-white">
+            {product.price} credits
+          </span>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onAddToCart}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors duration-300"
           >
-            {itemInCart}
-          </motion.p>
-        )}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={onAddToCart}
-          className="px-4 sm:px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm sm:text-base"
-        >
-          Add to Cart
-        </motion.button>
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            Add to Cart
+          </motion.button>
+        </div>
       </div>
-    </motion.article>
+    </motion.div>
   );
 
   return content;
 };
 
 function areProductsEqual(
-  { product: PrevProduct, inCart: prevInCart }: PropsType,
+  { product: prevProduct, inCart: prevInCart }: PropsType,
   { product: nextProduct, inCart: nextInCart }: PropsType
 ) {
-  return Object.keys(PrevProduct).every((key) => {
-    return (
-      PrevProduct[key as keyof ProductType] ===
-        nextProduct[key as keyof ProductType] && prevInCart === nextInCart
-    );
-  });
+  return (
+    Object.keys(prevProduct).every(
+      (key) =>
+        prevProduct[key as keyof ProductType] ===
+        nextProduct[key as keyof ProductType]
+    ) && prevInCart === nextInCart
+  );
 }
-const memoizedProduct = memo<typeof Product>(Product, areProductsEqual);
 
-export default memoizedProduct;
+const MemoizedProduct = memo<typeof Product>(Product, areProductsEqual);
+
+export default MemoizedProduct;
