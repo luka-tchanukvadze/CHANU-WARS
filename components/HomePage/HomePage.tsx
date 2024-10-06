@@ -165,7 +165,7 @@ const GridCard: React.FC<{
   return (
     <motion.div
       variants={gridSquareVariants}
-      className={`relative flex flex-col justify-center items-center p-8 rounded-lg shadow-lg overflow-hidden group`}
+      className={`relative flex flex-col justify-center items-center p-8 rounded-lg shadow-lg group`}
       whileHover={{ scale: 1.05, rotateY: 5 }}
       whileTap={{ scale: 0.95 }}
     >
