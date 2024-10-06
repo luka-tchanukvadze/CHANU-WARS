@@ -47,70 +47,80 @@ const ArchiveEntryItem: React.FC<{
   isExpanded: boolean;
   toggleExpand: (id: number) => void;
   hologramOpacity: number;
-}> = React.memo(({ entry, isExpanded, toggleExpand, hologramOpacity }) => {
-  return (
-    <motion.li
-      initial={{ x: -20, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className="bg-blue-900 bg-opacity-30 rounded-lg overflow-hidden border border-blue-500 shadow-[0_0_15px_rgba(0,255,255,0.3)]"
-    >
-      <motion.button
-        onClick={() => toggleExpand(entry.id)}
-        className="w-full text-left px-6 py-4 flex justify-between items-center"
-        whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.2)" }}
+  isVisible: boolean;
+}> = React.memo(
+  ({ entry, isExpanded, toggleExpand, hologramOpacity, isVisible }) => {
+    return (
+      <motion.li
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.3 }}
+        className="bg-blue-900 bg-opacity-30 rounded-lg overflow-hidden border border-blue-500 shadow-[0_0_15px_rgba(0,255,255,0.3)]"
       >
-        <h2 className="text-2xl font-semibold text-blue-300">{entry.title}</h2>
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="w-8 h-8 text-blue-400"
+        <motion.button
+          onClick={() => toggleExpand(entry.id)}
+          className={`w-full text-left px-6 py-4 flex justify-between items-center ${
+            isVisible ? "" : "pointer-events-none"
+          }`}
+          whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.2)" }}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 2L2 7L12 12L22 7L12 2Z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M2 17L12 22L22 17"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M2 12L12 17L22 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
-      </motion.button>
-      <AnimatePresence>
-        {isExpanded && (
+          <h2 className="text-2xl font-semibold text-blue-300">
+            {entry.title}
+          </h2>
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            animate={{ rotate: isExpanded ? 180 : 0 }}
             transition={{ duration: 0.3 }}
-            className="px-6 py-4 border-t border-blue-500/30"
+            className="w-8 h-8 text-blue-400"
           >
-            <p className="text-lg text-blue-100">{entry.information}</p>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L2 7L12 12L22 7L12 2Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2 17L12 22L22 17"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2 12L12 17L22 12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.li>
-  );
-});
+        </motion.button>
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="px-6 py-4 border-t border-blue-500/30">
+                <p className="text-lg text-blue-100">{entry.information}</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.li>
+    );
+  }
+);
 
 ArchiveEntryItem.displayName = "ArchiveEntryItem";
 
@@ -158,15 +168,18 @@ export default function RandomInfos() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="space-y-8 relative z-10"
         >
-          {memoizedArchiveEntries.map((entry) => (
-            <ArchiveEntryItem
-              key={entry.id}
-              entry={entry}
-              isExpanded={expandedId === entry.id}
-              toggleExpand={toggleExpand}
-              hologramOpacity={hologramOpacity}
-            />
-          ))}
+          <AnimatePresence>
+            {memoizedArchiveEntries.map((entry) => (
+              <ArchiveEntryItem
+                key={entry.id}
+                entry={entry}
+                isExpanded={expandedId === entry.id}
+                toggleExpand={toggleExpand}
+                hologramOpacity={hologramOpacity}
+                isVisible={expandedId === null || expandedId === entry.id}
+              />
+            ))}
+          </AnimatePresence>
         </motion.ul>
       </motion.div>
     </div>
