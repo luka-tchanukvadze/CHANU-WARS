@@ -52,14 +52,16 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
       transition={{ duration: 0.3 }}
       className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-br from-gray-900 to-gray-800 p-4 rounded-xl shadow-lg mb-4 border border-yellow-500/30"
     >
-      <div className="flex items-center mb-4 sm:mb-0">
-        <Image
-          width={80}
-          height={80}
-          src={item.sku}
-          alt={item.name}
-          className="rounded-lg shadow-md border-2 border-blue-500/50 mr-4"
-        />
+      <div className="flex items-center mb-4 sm:mb-0 sm:gap-8 gap-2">
+        <div>
+          <Image
+            width={80}
+            height={80}
+            src={item.sku}
+            alt={item.name}
+            className="rounded-lg shadow-md border-2 border-blue-500/50 mr-4"
+          />
+        </div>
         <div>
           <h3 className="text-yellow-400 font-bold text-lg mb-1">
             {item.name}

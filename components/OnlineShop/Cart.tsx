@@ -45,7 +45,7 @@ const Cart = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-yellow-500/30 shadow-lg"
       >
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
           <p className="text-blue-300 text-lg">
             Total Items:{" "}
             <span className="text-cyan-400 font-bold">{totalItems}</span>

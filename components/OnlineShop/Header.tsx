@@ -16,13 +16,13 @@ const Header = ({ viewCart, setViewCart }: PropsType) => {
         <div className="flex items-center space-x-4">
           <Link
             href="/OnlineShop"
-            className="text-yellow-400 font-extrabold text-xl sm:text-2xl font-starwars tracking-wider hover:text-yellow-300 transition-colors duration-300"
+            className="text-yellow-400 font-extrabold text-lg sm:text-2xl font-starwars tracking-wider hover:text-yellow-300 transition-colors duration-300 text-center"
           >
             CHANU SHOP
           </Link>
           <Link
             href="/"
-            className="text-blue-300 font-bold text-lg sm:text-xl hover:text-blue-200 transition-colors duration-300"
+            className="text-blue-300 font-bold text-base sm:text-xl hover:text-blue-200 transition-colors duration-300"
           >
             HOME
           </Link>
@@ -30,10 +30,10 @@ const Header = ({ viewCart, setViewCart }: PropsType) => {
 
         <div className="flex items-center space-x-4">
           <div className="hidden sm:block">
-            <p className="text-blue-300 text-sm">
+            <p className="text-blue-300 text-xs sm:text-sm">
               Items: <span className="text-cyan-400">{totalItems}</span>
             </p>
-            <p className="text-yellow-300 text-sm">
+            <p className="text-yellow-300 text-xs sm:text-sm">
               Total:{" "}
               <span className="text-yellow-400 font-bold">{totalPrice}</span>{" "}
               credits
