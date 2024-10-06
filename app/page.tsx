@@ -4,17 +4,24 @@ import HomePage from "@/components/HomePage/HomePage";
 import Opening from "@/components/Opening/Opening";
 
 export default function Home() {
-  const [showHomePage, setShowHomePage] = useState<boolean>(false);
+  const [showHomePage, setShowHomePage] = useState(
+    sessionStorage.getItem("showHomePage") || ""
+  );
+
+  const setSessionStorage = () => {
+    sessionStorage.setItem("showHomePage", "noSWopening");
+    setShowHomePage("noSWopening");
+  };
 
   return (
     <>
-      {/* {!showHomePage ? (
-        <Opening onAnimationComplete={() => setShowHomePage(true)} />
+      {showHomePage === "" ? (
+        <Opening onAnimationComplete={() => setSessionStorage()} />
       ) : (
         <HomePage />
-      )} */}
+      )}
 
-      <HomePage />
+      {/* <HomePage /> */}
     </>
   );
 }
