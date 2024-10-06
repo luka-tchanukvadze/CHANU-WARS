@@ -3,6 +3,7 @@ import useCart from "@/hooks/useCart";
 import { useState } from "react";
 import CartlineItem from "./CartlineItem";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Cart = () => {
   const [confirm, setConfirm] = useState(false);
@@ -26,6 +27,12 @@ const Cart = () => {
       <p className="text-blue-300">
         Your items will be delivered to your starship soon!
       </p>
+      <Link
+        href="/OnlineShop/OrderHistory"
+        className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 underline"
+      >
+        Check Order History
+      </Link>
     </motion.div>
   ) : (
     <div>
