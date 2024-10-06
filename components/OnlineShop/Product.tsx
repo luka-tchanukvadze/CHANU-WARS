@@ -32,8 +32,8 @@ const Product = ({
     >
       <div className="relative">
         <Image
-          width={400}
-          height={300}
+          width={5000}
+          height={5000}
           src={`${product.sku}`}
           alt={product.name}
           className="w-full h-48 object-cover"

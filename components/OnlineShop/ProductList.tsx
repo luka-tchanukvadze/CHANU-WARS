@@ -29,7 +29,7 @@ const ProductList = () => {
   }
 
   const content = (
-    <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-8 lg:p-12">
+    <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-8 lg:p-12 xl:px-32 2xl:px-52">
       {pageContent}
     </main>
   );
