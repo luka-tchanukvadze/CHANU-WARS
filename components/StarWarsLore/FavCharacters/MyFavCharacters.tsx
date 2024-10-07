@@ -289,7 +289,7 @@ export default function MyFavCharacters() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
       transition={{ duration: 0.8 }}
-      className="flex justify-center items-center mt-4 sm:mt-0 min-h-[95vh] w-full perspective px-4 sm:px-6 lg:px-8 "
+      className="flex justify-center items-center mt-4 sm:mt-2 min-h-[93vh] w-full perspective px-4 sm:px-6 lg:px-8 "
     >
       <div className="text-center space-y-8 w-full max-w-4xl">
         <AnimatePresence>
@@ -307,7 +307,6 @@ export default function MyFavCharacters() {
               }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden"
             >
               <button
                 className="w-full text-center text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black flex items-center justify-center"
