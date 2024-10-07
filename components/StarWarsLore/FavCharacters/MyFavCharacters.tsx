@@ -289,7 +289,7 @@ export default function MyFavCharacters() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
       transition={{ duration: 0.8 }}
-      className="flex justify-center items-center min-h-[80vh] w-full perspective px-4 sm:px-6 lg:px-8 "
+      className="flex justify-center items-center mt-4 sm:mt-0 min-h-[95vh] w-full perspective px-4 sm:px-6 lg:px-8 "
     >
       <div className="text-center space-y-8 w-full max-w-4xl">
         <AnimatePresence>
@@ -310,10 +310,17 @@ export default function MyFavCharacters() {
               className="overflow-hidden"
             >
               <button
-                className="w-full text-center text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
+                className="w-full text-center text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black flex items-center justify-center"
                 onClick={() => toggleExpand(character.id)}
               >
-                {character.name}
+                <Image
+                  src={character.img}
+                  alt={character.name}
+                  width={50}
+                  height={50}
+                  className="rounded-full mr-4 border-2 border-yellow-400 w-10 h-10 sm:w-14 sm:h-14 object-cover"
+                />
+                <span>{character.name}</span>
                 <Chevron isExpanded={expandedId === character.id} />
               </button>
               <AnimatePresence>
