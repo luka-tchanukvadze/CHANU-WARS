@@ -289,7 +289,7 @@ export default function MyFavCharacters() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
       transition={{ duration: 0.8 }}
-      className="flex justify-center items-center mt-4 sm:mt-2 min-h-[93vh] w-full perspective px-4 sm:px-6 lg:px-8 "
+      className="flex justify-center items-center mt-4 sm:mt-2 min-h-[93vh] w-full perspective px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div className="text-center space-y-8 w-full max-w-4xl">
         <AnimatePresence>
