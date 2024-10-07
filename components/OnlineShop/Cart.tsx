@@ -4,12 +4,49 @@ import { useState } from "react";
 import CartlineItem from "./CartlineItem";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { CartItemType } from "@/context/CartProvider";
+
+interface Order {
+  id: string;
+  date: string;
+  total: number;
+  status: string;
+  items: any;
+}
+interface Product {
+  name: string;
+  type: string;
+  description: string;
+  price: number;
+  sku: string;
+}
 
 const Cart = () => {
   const [confirm, setConfirm] = useState(false);
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
 
+  const storedOrderHistory: any = localStorage.getItem("orderHistory");
+
   const onSubmitOrder = () => {
+    const currentHistory = JSON.parse(
+      localStorage.getItem("orderHistory") || "[]"
+    );
+
+    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
+    const addToHistory: Order = {
+      id: `ORD${currentHistory.length + 1}`,
+      date: new Date().toISOString().split("T")[0],
+      total: totalAmount,
+      status: "Delivered",
+      items: cart,
+    };
+
+    const updatedHistory = [...currentHistory, addToHistory];
+    localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
+
+    console.log("Updated Order History:", updatedHistory);
+
     dispatch({ type: REDUCER_ACTIONS.SUBMIT });
     setConfirm(true);
   };
