@@ -24,15 +24,19 @@ interface Product {
 const Cart = () => {
   const [confirm, setConfirm] = useState(false);
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
-
+  console.log("this is cart", cart);
   const storedOrderHistory: any = localStorage.getItem("orderHistory");
+  console.log("Stored Order Historyaa:", JSON.parse(storedOrderHistory));
 
   const onSubmitOrder = () => {
     const currentHistory = JSON.parse(
       localStorage.getItem("orderHistory") || "[]"
     );
 
-    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+    const totalAmount = cart.reduce(
+      (sum, item) => sum + item.price * item.qty,
+      0
+    );
 
     const addToHistory: Order = {
       id: `ORD${currentHistory.length + 1}`,

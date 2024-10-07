@@ -10,6 +10,7 @@ interface Product {
   description: string;
   price: number;
   sku: string;
+  qty: number;
 }
 
 interface Order {
@@ -240,18 +241,18 @@ export default function OrderHistory() {
                             <motion.div
                               key={item.name}
                               variants={itemVariants}
-                              className="flex items-center justify-between bg-gray-700 p-4 rounded-lg"
+                              className="flex flex-col sm:flex-row items-center justify-between bg-gray-700 p-4 rounded-lg"
                             >
                               <motion.div
                                 variants={itemVariants}
-                                className="flex items-center space-x-4"
+                                className="flex flex-col text-center sm:text-start sm:flex-row items-center space-x-4"
                               >
                                 <Image
                                   src={item.sku}
                                   alt={item.name}
                                   width={80}
                                   height={80}
-                                  className="rounded-md"
+                                  className="rounded-md w-1/2 sm:w-auto"
                                 />
                                 <motion.div variants={itemVariants}>
                                   <motion.h4
@@ -274,12 +275,15 @@ export default function OrderHistory() {
                                   </motion.p>
                                 </motion.div>
                               </motion.div>
-                              <motion.p
+                              <motion.div
                                 variants={itemVariants}
-                                className="text-lg font-semibold text-yellow-300"
+                                className="text-lg text-center sm:text-start font-semibold text-yellow-300"
                               >
                                 {item.price.toLocaleString()} credits
-                              </motion.p>
+                                <div className="text-blue-300">
+                                  Quantity: {item.qty}
+                                </div>
+                              </motion.div>
                             </motion.div>
                           ))}
                         </motion.div>
