@@ -51,9 +51,9 @@ const ControlMusic = ({ audioStarted, audioRef }: any) => {
             />
             <span className="relative z-10 flex items-center justify-center w-full h-full">
               {isPaused ? (
-                <Volume2 className="w-6 h-6 text-yellow-400" />
+                <VolumeX className="w-6 h-6 text-yellow-400" />
               ) : (
-                <VolumeX className="w-6 h-6 text-gray-900" />
+                <Volume2 className="w-6 h-6 text-gray-900" />
               )}
             </span>
           </motion.button>
