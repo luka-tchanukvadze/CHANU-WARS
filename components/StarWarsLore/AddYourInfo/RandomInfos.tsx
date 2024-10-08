@@ -1,51 +1,54 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
 interface ArchiveEntry {
-  id: number;
+  _id: string;
   title: string;
-  information: string;
+  info: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-const archiveEntries: ArchiveEntry[] = [
-  {
-    id: 1,
-    title: "The Sacred Jedi Texts",
-    information:
-      "Ancient books and scrolls containing the wisdom of the Jedi Order, preserved for millennia. These texts hold the secrets of Force abilities, lightsaber combat, and the history of the light side.",
-  },
-  {
-    id: 2,
-    title: "The Rule of Two",
-    information:
-      "A Sith philosophy established by Darth Bane. Only two there should be; no more, no less. One to embody the power, the other to crave it. This doctrine ensured the survival and strengthening of the Sith for generations.",
-  },
-  {
-    id: 3,
-    title: "Kyber Crystals",
-    information:
-      "The heart of a Jedi's lightsaber, these Force-attuned crystals resonate with their wielder. They can focus incredible amounts of energy, powering not just lightsabers but also superweapons capable of destroying entire planets.",
-  },
-  {
-    id: 4,
-    title: "The Prophecy of the Chosen One",
-    information:
-      "An ancient Jedi prophecy foretelling the coming of a being who would bring balance to the Force. Many believed this to be Anakin Skywalker, but the true nature of the prophecy remained shrouded in mystery.",
-  },
-  {
-    id: 5,
-    title: "Force Ghosts",
-    information:
-      "A rare ability allowing certain Force users to preserve their consciousness after death. These luminous beings can appear to the living, offering guidance and wisdom from beyond the veil of mortality.",
-  },
-];
+// const archiveEntries: ArchiveEntry[] = [
+//   {
+//     id: 1,
+//     title: "The Sacred Jedi Texts",
+//     information:
+//       "Ancient books and scrolls containing the wisdom of the Jedi Order, preserved for millennia. These texts hold the secrets of Force abilities, lightsaber combat, and the history of the light side.",
+//   },
+//   {
+//     id: 2,
+//     title: "The Rule of Two",
+//     information:
+//       "A Sith philosophy established by Darth Bane. Only two there should be; no more, no less. One to embody the power, the other to crave it. This doctrine ensured the survival and strengthening of the Sith for generations.",
+//   },
+//   {
+//     id: 3,
+//     title: "Kyber Crystals",
+//     information:
+//       "The heart of a Jedi's lightsaber, these Force-attuned crystals resonate with their wielder. They can focus incredible amounts of energy, powering not just lightsabers but also superweapons capable of destroying entire planets.",
+//   },
+//   {
+//     id: 4,
+//     title: "The Prophecy of the Chosen One",
+//     information:
+//       "An ancient Jedi prophecy foretelling the coming of a being who would bring balance to the Force. Many believed this to be Anakin Skywalker, but the true nature of the prophecy remained shrouded in mystery.",
+//   },
+//   {
+//     id: 5,
+//     title: "Force Ghosts",
+//     information:
+//       "A rare ability allowing certain Force users to preserve their consciousness after death. These luminous beings can appear to the living, offering guidance and wisdom from beyond the veil of mortality.",
+//   },
+// ];
 
 const ArchiveEntryItem: React.FC<{
   entry: ArchiveEntry;
   isExpanded: boolean;
-  toggleExpand: (id: number) => void;
+  toggleExpand: (id: string) => void;
   hologramOpacity: number;
   isVisible: boolean;
 }> = React.memo(
@@ -59,7 +62,7 @@ const ArchiveEntryItem: React.FC<{
         className="bg-blue-900 bg-opacity-30 rounded-lg overflow-hidden border border-blue-500 shadow-[0_0_15px_rgba(0,255,255,0.3)]"
       >
         <motion.button
-          onClick={() => toggleExpand(entry.id)}
+          onClick={() => toggleExpand(entry._id)}
           className={`w-full text-left px-6 py-4 flex justify-between items-center ${
             isVisible ? "" : "pointer-events-none"
           }`}
@@ -112,7 +115,10 @@ const ArchiveEntryItem: React.FC<{
               className="overflow-hidden"
             >
               <div className="px-6 py-4 border-t border-blue-500/30">
-                <p className="text-lg text-blue-100">{entry.information}</p>
+                <p className="text-lg text-blue-100">{entry.info}</p>
+                <p className="text-sm text-blue-400 mt-2">
+                  Created: {new Date(entry.createdAt).toLocaleString()}
+                </p>
               </div>
             </motion.div>
           )}
@@ -125,10 +131,13 @@ const ArchiveEntryItem: React.FC<{
 ArchiveEntryItem.displayName = "ArchiveEntryItem";
 
 export default function RandomInfos() {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [hologramOpacity, setHologramOpacity] = useState(0.7);
+  const [archiveEntries, setArchiveEntries] = useState<ArchiveEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const toggleExpand = useCallback((id: number) => {
+  const toggleExpand = useCallback((id: string) => {
     setExpandedId((prevId) => (prevId === id ? null : id));
   }, []);
 
@@ -139,7 +148,23 @@ export default function RandomInfos() {
     return () => clearInterval(interval);
   }, []);
 
-  const memoizedArchiveEntries = useMemo(() => archiveEntries, []);
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(
+        "https://chanu-wars-back-j4ry3e27l-lukatchanukvadzes-projects.vercel.app/randomInfos"
+      )
+      // .get("http://localhost:5555/randomInfos")
+      .then((response) => {
+        setArchiveEntries(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to load archive entries. Please try again later.");
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-cover bg-center bg-blend-overlay text-blue-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
@@ -162,25 +187,51 @@ export default function RandomInfos() {
         >
           Jedi Archives
         </motion.h1>
-        <motion.ul
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="space-y-8 relative z-10"
-        >
-          <AnimatePresence>
-            {memoizedArchiveEntries.map((entry) => (
-              <ArchiveEntryItem
-                key={entry.id}
-                entry={entry}
-                isExpanded={expandedId === entry.id}
-                toggleExpand={toggleExpand}
-                hologramOpacity={hologramOpacity}
-                isVisible={expandedId === null || expandedId === entry.id}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.ul>
+        {isLoading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-2xl text-blue-300"
+          >
+            Loading archives...
+          </motion.div>
+        ) : error ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-2xl text-red-500"
+          >
+            {error}
+          </motion.div>
+        ) : archiveEntries.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-2xl text-blue-300"
+          >
+            No archive entries found. The archives seem to be empty.
+          </motion.div>
+        ) : (
+          <motion.ul
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="space-y-8 relative z-10"
+          >
+            <AnimatePresence>
+              {archiveEntries.map((entry: ArchiveEntry) => (
+                <ArchiveEntryItem
+                  key={entry._id}
+                  entry={entry}
+                  isExpanded={expandedId === entry._id}
+                  toggleExpand={toggleExpand}
+                  hologramOpacity={hologramOpacity}
+                  isVisible={expandedId === null || expandedId === entry._id}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.ul>
+        )}
       </motion.div>
     </div>
   );

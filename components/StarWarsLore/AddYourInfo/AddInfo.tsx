@@ -3,23 +3,45 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import axios from "axios";
 
 export default function AddInfo() {
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ title, info });
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-    setTitle("");
-    setInfo("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission
+    setIsSubmitting(true);
+    setError("");
+
+    const data = {
+      title,
+      info,
+    };
+
+    try {
+      await axios.post(
+        "https://chanu-wars-back-j4ry3e27l-lukatchanukvadzes-projects.vercel.app/randomInfos",
+        data
+      );
+      // await axios.post("http://localhost:5555/randomInfos", data);
+      setIsSubmitted(true);
+      setTitle("");
+      setInfo("");
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to transmit to archives. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen  bg-opacity-90  bg-cover bg-center bg-blend-overlay text-yellow-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
+    <div className="min-h-screen bg-opacity-90 bg-cover bg-center bg-blend-overlay text-yellow-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -82,9 +104,10 @@ export default function AddInfo() {
             }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-yellow-600 text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition duration-300 text-lg tracking-wide"
+            disabled={isSubmitting}
+            className="w-full bg-yellow-600 text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition duration-300 text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Transmit to Archives
+            {isSubmitting ? "Transmitting..." : "Transmit to Archives"}
           </motion.button>
         </motion.form>
         <AnimatePresence>
