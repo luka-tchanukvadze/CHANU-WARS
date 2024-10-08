@@ -23,10 +23,7 @@ export default function AddInfo() {
     };
 
     try {
-      await axios.post(
-        "https://chanu-wars-back-j4ry3e27l-lukatchanukvadzes-projects.vercel.app/randomInfos",
-        data
-      );
+      await axios.post("https://chanu-wars-back.vercel.app/randomInfos", data);
       // await axios.post("http://localhost:5555/randomInfos", data);
       setIsSubmitted(true);
       setTitle("");
