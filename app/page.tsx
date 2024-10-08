@@ -15,13 +15,13 @@ export default function Home() {
 
   return (
     <>
-      {/* {showHomePage === "" ? (
+      {showHomePage === "" ? (
         <Opening onAnimationComplete={() => setSessionStorage()} />
       ) : (
         <HomePage />
-      )} */}
+      )}
 
-      <HomePage />
+      {/* <HomePage /> */}
     </>
   );
 }
