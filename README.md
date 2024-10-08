@@ -16,17 +16,17 @@ A fully functional online shop to feed your Star Wars obsession. From lightsaber
 Take control of your own Star Wars ship in epic space battles! The game is live, and you can jump in right now to battle it out in the galaxy. Whether you're outmaneuvering your enemies or blasting them into space dust, this is your chance to prove you're the ultimate star pilot. Play it now and may the Force be with you!
 
 💻 Tech Stack (What Powers the Galaxy)
-Frontend: Next.js with TypeScript, Tailwind CSS, and Framer Motion (because animations should be as smooth as Han Solo).
-Backend: Node.js with Express, and MongoDB (for storing all that intergalactic data).
-And that’s just the beginning. This project will grow, evolve, and expand, just like the Star Wars universe itself.
+- Frontend: Next.js with TypeScript, Tailwind CSS, and Framer Motion (because animations should be as smooth as Han Solo).
+- Backend: Node.js with Express, and MongoDB (for storing all that intergalactic data).
+- And that’s just the beginning. This project will grow, evolve, and expand, just like the Star Wars universe itself.
 
 🚀 What’s Next?
-The future holds so much for CHANU WARS:
+- The future holds so much for CHANU WARS:
 
-Adding Jest to test and ensure every button, every API call, every space battle works perfectly.
-Bringing in AI chat so you can talk with characters, droids, or even Yoda himself!
-And of course, the current starship fighting game was added as a learning exercise to figure out how to implement Three.js in React. But soon, I’ll be creating my own game from scratch - so stay tuned for something even more exciting!
+- Adding Jest to test and ensure every button, every API call, every space battle works perfectly.
+- Bringing in AI chat so you can talk with characters, droids, or even Yoda himself!
+ -And of course, the current starship fighting game was added as a learning exercise to figure out how to implement Three.js in React. But soon, I’ll be creating my own game from scratch - so stay tuned for something even more exciting!
 
 Why Should You Care?
-Honestly, if you’re not already hyped to watch the Star Wars saga, CHANU WARS might just push you over the edge. The lore, the shop, the ships—it’s all designed to spark that excitement. So buckle up, because this is the way.
+- Honestly, if you’re not already hyped to watch the Star Wars saga, CHANU WARS might just push you over the edge. The lore, the shop, the ships—it’s all designed to spark that excitement. So buckle up, because this is the way.
 
