@@ -151,9 +151,7 @@ export default function RandomInfos() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(
-        "https://chanu-wars-back-j4ry3e27l-lukatchanukvadzes-projects.vercel.app/randomInfos"
-      )
+      .get("https://chanu-wars-back.vercel.app/randomInfos")
       // .get("http://localhost:5555/randomInfos")
       .then((response) => {
         setArchiveEntries(response.data.data);
