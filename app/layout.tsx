@@ -9,6 +9,7 @@ import Music from "@/components/Music/Music";
 import { useRef, useState } from "react";
 import StartMusic from "@/components/Music/StartMusic";
 import ControlMusic from "@/components/Music/ControlMusic";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -48,6 +49,7 @@ export default function RootLayout({
           {/* <div className="z-10">{children}</div> */}
         </MainLayout>
       </body>
+      <GoogleAnalytics gaId={`${process.env.ANALYTICS}`} />
     </html>
   );
 }
