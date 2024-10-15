@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
@@ -12,147 +12,35 @@ interface ArchiveEntry {
   updatedAt: string;
 }
 
-// const archiveEntries: ArchiveEntry[] = [
-//   {
-//     id: 1,
-//     title: "The Sacred Jedi Texts",
-//     information:
-//       "Ancient books and scrolls containing the wisdom of the Jedi Order, preserved for millennia. These texts hold the secrets of Force abilities, lightsaber combat, and the history of the light side.",
-//   },
-//   {
-//     id: 2,
-//     title: "The Rule of Two",
-//     information:
-//       "A Sith philosophy established by Darth Bane. Only two there should be; no more, no less. One to embody the power, the other to crave it. This doctrine ensured the survival and strengthening of the Sith for generations.",
-//   },
-//   {
-//     id: 3,
-//     title: "Kyber Crystals",
-//     information:
-//       "The heart of a Jedi's lightsaber, these Force-attuned crystals resonate with their wielder. They can focus incredible amounts of energy, powering not just lightsabers but also superweapons capable of destroying entire planets.",
-//   },
-//   {
-//     id: 4,
-//     title: "The Prophecy of the Chosen One",
-//     information:
-//       "An ancient Jedi prophecy foretelling the coming of a being who would bring balance to the Force. Many believed this to be Anakin Skywalker, but the true nature of the prophecy remained shrouded in mystery.",
-//   },
-//   {
-//     id: 5,
-//     title: "Force Ghosts",
-//     information:
-//       "A rare ability allowing certain Force users to preserve their consciousness after death. These luminous beings can appear to the living, offering guidance and wisdom from beyond the veil of mortality.",
-//   },
-// ];
-
-const ArchiveEntryItem: React.FC<{
-  entry: ArchiveEntry;
-  isExpanded: boolean;
-  toggleExpand: (id: string) => void;
-  hologramOpacity: number;
-  isVisible: boolean;
-}> = React.memo(
-  ({ entry, isExpanded, toggleExpand, hologramOpacity, isVisible }) => {
-    return (
-      <motion.li
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.3 }}
-        className="bg-blue-900 bg-opacity-30 rounded-lg overflow-hidden border border-blue-500 shadow-[0_0_15px_rgba(0,255,255,0.3)]"
-      >
-        <motion.button
-          onClick={() => toggleExpand(entry._id)}
-          className={`w-full text-left px-6 py-4 flex justify-between items-center ${
-            isVisible ? "" : "pointer-events-none"
-          }`}
-          whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.2)" }}
-        >
-          <h2 className="text-2xl font-semibold text-blue-300">
-            {entry.title}
-          </h2>
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-8 h-8 text-blue-400"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2L2 7L12 12L22 7L12 2Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 17L12 22L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 12L12 17L22 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
-        </motion.button>
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="px-6 py-4 border-t border-blue-500/30">
-                <p className="text-lg text-blue-100">{entry.info}</p>
-                <p className="text-sm text-blue-400 mt-2">
-                  Created: {new Date(entry.createdAt).toLocaleString()}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.li>
-    );
-  }
+const Chevron = ({ isExpanded }: { isExpanded: boolean }) => (
+  <motion.svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    initial={false}
+    animate={{ rotate: isExpanded ? 180 : 0 }}
+    transition={{ duration: 0.3 }}
+    className="inline-block ml-2"
+  >
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </motion.svg>
 );
 
-ArchiveEntryItem.displayName = "ArchiveEntryItem";
-
-export default function RandomInfos() {
+export default function JediArchives() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [hologramOpacity, setHologramOpacity] = useState(0.7);
   const [archiveEntries, setArchiveEntries] = useState<ArchiveEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const toggleExpand = useCallback((id: string) => {
-    setExpandedId((prevId) => (prevId === id ? null : id));
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHologramOpacity((prev) => (prev === 0.7 ? 0.9 : 0.7));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     setIsLoading(true);
     axios
       .get("https://chanu-wars-back.vercel.app/randomInfos")
-      // .get("http://localhost:5555/randomInfos")
       .then((response) => {
         setArchiveEntries(response.data.data);
         setIsLoading(false);
@@ -164,73 +52,80 @@ export default function RandomInfos() {
       });
   }, []);
 
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="text-center text-2xl text-yellow-400">
+        Loading archives...
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-center text-2xl text-red-500">{error}</div>;
+  }
+
   return (
-    <div className="min-h-screen bg-cover bg-center bg-blend-overlay text-blue-300 py-12 px-4 sm:px-6 lg:px-8 font-['Star_Wars']">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="max-w-4xl mx-auto relative"
-      >
-        <motion.div
-          className="absolute inset-0 bg-blue-500 opacity-20 blur-3xl"
-          animate={{ opacity: hologramOpacity * 0.2 }}
-          transition={{ duration: 1 }}
-        />
-        <motion.h1
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-5xl md:text-6xl font-bold text-center mb-12 text-blue-300 tracking-wider relative z-10"
-        >
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.8 }}
+      className="flex justify-center items-center min-h-[80vh] w-full perspective px-4 sm:px-6 lg:px-8"
+    >
+      <div className="text-center space-y-8 w-full max-w-4xl">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-yellow-400 mb-12">
           Jedi Archives
-        </motion.h1>
-        {isLoading ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-2xl text-blue-300"
-          >
-            Loading archives...
-          </motion.div>
-        ) : error ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-2xl text-red-500"
-          >
-            {error}
-          </motion.div>
-        ) : archiveEntries.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-2xl text-blue-300"
-          >
-            No archive entries found. The archives seem to be empty.
-          </motion.div>
-        ) : (
-          <motion.ul
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="space-y-8 relative z-10"
-          >
-            <AnimatePresence>
-              {archiveEntries.map((entry: ArchiveEntry) => (
-                <ArchiveEntryItem
-                  key={entry._id}
-                  entry={entry}
-                  isExpanded={expandedId === entry._id}
-                  toggleExpand={toggleExpand}
-                  hologramOpacity={hologramOpacity}
-                  isVisible={expandedId === null || expandedId === entry._id}
-                />
-              ))}
-            </AnimatePresence>
-          </motion.ul>
-        )}
-      </motion.div>
-    </div>
+        </h1>
+        <AnimatePresence>
+          {archiveEntries.map((entry) => (
+            <motion.div
+              key={entry._id}
+              initial={{ opacity: 1, height: "auto" }}
+              animate={{
+                opacity:
+                  expandedId === null || expandedId === entry._id ? 1 : 0,
+                height:
+                  expandedId === null || expandedId === entry._id ? "auto" : 0,
+              }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mb-6 bg-gray-800 bg-opacity-50 rounded-lg shadow-lg overflow-hidden"
+            >
+              <button
+                className="w-full text-left p-4 text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                onClick={() => toggleExpand(entry._id)}
+              >
+                <span className="flex items-center justify-between">
+                  {entry.title}
+                  <Chevron isExpanded={expandedId === entry._id} />
+                </span>
+              </button>
+              <AnimatePresence>
+                {expandedId === entry._id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 text-yellow-300 text-base sm:text-lg bg-gray-900 bg-opacity-50"
+                  >
+                    <p className="pt-4 px-4">{entry.info}</p>
+                    <br />
+
+                    <p className="pb-4">
+                      Created: {new Date(entry.createdAt).toLocaleString()}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 }
