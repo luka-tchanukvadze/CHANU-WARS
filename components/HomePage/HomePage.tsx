@@ -170,27 +170,27 @@ const GridCard: React.FC<{
       whileTap={{ scale: 0.95 }}
     >
       <div
-        className={`absolute inset-0 bg-black bg-opacity-50 backdrop-blur-md rounded-lg border border-${glowColor}-500 shadow-[0_0_15px_rgba(0,0,0,0.5)]`}
+        className={`absolute inset-0 bg-black bg-opacity-50 backdrop-blur-md rounded-lg border border-blue-500 shadow-[0_0_15px_rgba(0,0,0,0.5)]`}
       />
       <div
-        className={`absolute inset-0 opacity-20 bg-gradient-to-br from-${glowColor}-500 via-transparent to-transparent rounded-lg`}
+        className={`absolute inset-0 opacity-20 bg-gradient-to-br from-blue-500 via-transparent to-transparent rounded-lg`}
       />
       <motion.div
-        className={`absolute inset-0 bg-${glowColor}-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-lg`}
+        className={`absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-lg`}
         initial={false}
         whileHover={{ opacity: 0.1 }}
       />
       <div className="relative z-10 flex flex-col items-center">
         {icon}
         <h2
-          className={`text-3xl font-bold text-${glowColor}-300 mb-4 text-shadow-${glowColor}`}
+          className={`text-3xl font-bold text-blue-300 mb-4 text-shadow-blue`}
         >
           {title}
         </h2>
         <p className="text-blue-100 text-opacity-90 mb-6">{description}</p>
         <Link
           href={href}
-          className={`px-6 py-3 bg-${glowColor}-500 bg-opacity-20 text-${glowColor}-300 rounded-full shadow-md hover:bg-opacity-30 transition-all duration-300 transform hover:scale-105 border border-${glowColor}-500 hover:shadow-${glowColor}-500/50`}
+          className={`px-6 py-3 bg-blue-500 bg-opacity-20 text-blue-300 rounded-full shadow-md hover:bg-opacity-30 transition-all duration-300 transform hover:scale-105 border border-blue-500 hover:shadow-blue-500/50`}
         >
           Explore
         </Link>
