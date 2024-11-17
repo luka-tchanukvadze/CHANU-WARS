@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import StartMusic from "@/components/Music/StartMusic";
 import ControlMusic from "@/components/Music/ControlMusic";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import OpenAI from "@/components/AIchat/OpenAI";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -44,6 +45,7 @@ export default function RootLayout({
             <>
               {<ControlMusic audioRef={audioRef} audioStarted={audioStarted} />}
               {children}
+              <OpenAI />
             </>
           )}
           {/* <div className="z-10">{children}</div> */}
