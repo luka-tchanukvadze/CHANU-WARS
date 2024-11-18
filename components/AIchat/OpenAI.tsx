@@ -12,14 +12,14 @@ const OpenAI = () => {
   return (
     <div className="fixed bottom-24 right-4">
       <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className={`relative w-14 h-14 bg-gray-900 rounded-lg overflow-hidden border border-yellow-400 shadow-lg hover:shadow-yellow-400/50 transition-all duration-300 flex items-center justify-center`}
+        className="relative w-14 h-14 bg-gray-900 rounded-lg overflow-hidden border border-yellow-400 shadow-lg hover:shadow-yellow-400/50 transition-all duration-300 flex items-center justify-center"
         aria-label={isOpen ? "Close Galactic AI Chat" : "Open Galactic AI Chat"}
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-red-500" />
+          <X className="sm:w-6 sm:h-6 text-red-500" />
         ) : (
           <MessageCircle className="w-6 h-6 text-yellow-400" />
         )}
