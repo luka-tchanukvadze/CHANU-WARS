@@ -4,12 +4,18 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Trash2 } from "lucide-react";
 import ChatHistory from "./ChatHistory";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default function AIchat() {
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const myApi: string = process.env.NEXT_PUBLIC_GEMINI_API || "defaultApiKey";
+
+  const genAI = new GoogleGenerativeAI(myApi);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
@@ -21,16 +27,20 @@ export default function AIchat() {
     setIsLoading(true);
     setError("");
     try {
-      // Simulating API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const result = await model.generateContent(userInput);
+      const response = await result.response;
 
-      // Simulating error response
-      throw new Error(
-        "Too many API requests made. AI chat will be available after a short time."
-      );
+      setChatHistory([
+        ...chatHistory,
+        { type: "user", message: userInput },
+        { type: "bot", message: response.text() },
+      ]);
     } catch (error) {
       console.error("Error sending message:", error);
-      setError((error as Error).message);
+      // setError((error as Error).message);
+      setError(
+        "Too many requests have been made. Please wait a few minutes and try again."
+      );
     } finally {
       setUserInput("");
       setIsLoading(false);
