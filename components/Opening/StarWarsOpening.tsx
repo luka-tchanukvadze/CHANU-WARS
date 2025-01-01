@@ -37,6 +37,11 @@ const lineVariants = {
   },
 };
 
+const skipButtonVariants = {
+  hover: { scale: 1.1 },
+  tap: { scale: 0.95 },
+};
+
 interface StarWarsOpeningProps {
   onAnimationComplete?: () => void;
 }
@@ -113,6 +118,21 @@ export default function StarWarsOpening({
           </motion.div>
         ))}
       </motion.div>
+
+      <motion.button
+        variants={skipButtonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        transition={{ duration: 0.3 }}
+        className="absolute left-4 bottom-4 bg-yellow-400 text-black font-bold py-2 px-4 rounded-lg shadow-lg text-sm md:text-base lg:text-lg"
+        onClick={() => {
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
+        }}
+      >
+        Skip Intro
+      </motion.button>
     </div>
   );
 }
