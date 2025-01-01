@@ -8,21 +8,6 @@ const Opening = ({ onAnimationComplete }: any) => {
   const [time, setTime] = useState<number>(5);
   console.log(time);
 
-  // useEffect(() => {
-  //   const countdown = setInterval(() => {
-  //     setTime((prev) => {
-  //       if (time <= 0) {
-  //         clearInterval(countdown);
-  //         return 0;
-  //       }
-
-  //       return prev - 1;
-  //     });
-  //   }, 1000);
-
-  //   clearInterval(countdown);
-  // }, []);
-
   useEffect(() => {
     const countdown = setInterval(() => {
       setTime((prev) => {
