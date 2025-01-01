@@ -32,7 +32,7 @@ const Opening = ({ onAnimationComplete }: any) => {
           />
           <motion.div
             className="absolute left-4 bottom-4 p-2 flex items-center gap-2 bg-yellow-400 text-black font-bold py-2 px-4 rounded-lg shadow-lg text-sm md:text-base lg:text-lg"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
