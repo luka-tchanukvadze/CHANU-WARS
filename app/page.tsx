@@ -13,6 +13,8 @@ export default function Home() {
     setShowHomePage("noSWopening");
   };
 
+  // it's time to clean up the codebase
+
   return (
     <>
       {showHomePage === "" ? (
