@@ -42,7 +42,7 @@ export default function JediArchives() {
     axios
       .get("https://chanu-wars-back.vercel.app/randomInfos")
       .then((response) => {
-        setArchiveEntries(response.data.data);
+        setArchiveEntries(response.data.body);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -81,7 +81,7 @@ export default function JediArchives() {
           Jedi Archives
         </h1>
         <AnimatePresence>
-          {archiveEntries.map((entry) => (
+          {archiveEntries?.map((entry) => (
             <motion.div
               key={entry._id}
               initial={{ opacity: 1, height: "auto" }}
