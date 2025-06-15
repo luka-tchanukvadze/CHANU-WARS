@@ -42,7 +42,7 @@ export default function JediArchives() {
     axios
       .get("https://chanu-wars-back.vercel.app/randomInfos")
       .then((response) => {
-        setArchiveEntries(response.data.body);
+        setArchiveEntries(response.data.data.body);
         setIsLoading(false);
       })
       .catch((err) => {
