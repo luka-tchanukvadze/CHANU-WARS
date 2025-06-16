@@ -36,14 +36,9 @@ const gridSquareVariants = {
 
 const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [windowHeight, setWindowHeight] = useState(800);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 400);
-
-    // Set window height once to avoid constant recalculation
-    setWindowHeight(window.innerHeight);
-
+    const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -74,18 +69,7 @@ const HomePage: React.FC = () => {
                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
               />
             </svg>
-            <motion.div
-              className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-cyan-400 opacity-20 blur-xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
+            <div className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-cyan-400 opacity-10 blur-xl" />
           </motion.div>
         ),
       },
@@ -113,19 +97,7 @@ const HomePage: React.FC = () => {
                 d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
               />
             </svg>
-            <motion.div
-              className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-amber-400 opacity-20 blur-xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 0.7,
-              }}
-            />
+            <div className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-amber-400 opacity-10 blur-xl" />
           </motion.div>
         ),
       },
@@ -153,19 +125,7 @@ const HomePage: React.FC = () => {
                 d="M13 10V3L4 14h7v7l9-11h-7z"
               />
             </svg>
-            <motion.div
-              className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-red-400 opacity-20 blur-xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1.4,
-              }}
-            />
+            <div className="absolute inset-0 w-16 h-16 mb-4 rounded-full bg-red-400 opacity-10 blur-xl" />
           </motion.div>
         ),
       },
@@ -174,25 +134,8 @@ const HomePage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Optimized scan lines - only render when not loading */}
-      {!loading && (
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-500/5 to-transparent h-2"
-            animate={{
-              y: [0, windowHeight],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          />
-        </div>
-      )}
-
-      {/* Reviews Button - Death Star Hologram Style with Next.js Link */}
+    <div className="min-h-screen  relative overflow-hidden">
+      {/* Reviews Button */}
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50">
         <motion.div
           initial={{
@@ -215,77 +158,33 @@ const HomePage: React.FC = () => {
         >
           <Link href="/reviews" className="block">
             <motion.div
-              className="relative px-10 py-5 bg-black border-2 border-red-500 text-red-400 font-bold text-lg rounded-none overflow-hidden cursor-pointer"
+              className="relative px-3 py-3 sm:px-10 sm:py-5 bg-black border-2 border-red-500 text-red-400 font-bold text-lg rounded-none overflow-hidden cursor-pointer"
               style={{
                 fontFamily: "Orbitron, monospace",
                 clipPath:
                   "polygon(10% 0%, 90% 0%, 100% 25%, 100% 75%, 90% 100%, 10% 100%, 0% 75%, 0% 25%)",
                 letterSpacing: "0.2em",
+                boxShadow:
+                  "0 0 10px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.1)",
               }}
               whileHover={{
                 scale: 1.1,
                 borderColor: "rgb(239 68 68)",
                 color: "rgb(248 113 113)",
+                boxShadow:
+                  "0 0 15px rgba(239, 68, 68, 0.7), inset 0 0 15px rgba(239, 68, 68, 0.15)",
               }}
               whileTap={{ scale: 0.9 }}
-              animate={{
-                boxShadow: [
-                  "0 0 10px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.1)",
-                  "0 0 15px rgba(239, 68, 68, 0.7), inset 0 0 15px rgba(239, 68, 68, 0.15)",
-                  "0 0 10px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.1)",
-                ],
-              }}
-              transition={{
-                boxShadow: {
-                  duration: 3,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                },
-              }}
+              transition={{ duration: 0.2 }}
             >
-              {/* Optimized hologram flicker - reduced frequency */}
-              <motion.div
-                className="absolute inset-0 bg-red-500 opacity-0"
-                animate={{
-                  opacity: [0, 0.08, 0, 0.04, 0],
-                }}
-                transition={{
-                  duration: 0.3,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatDelay: 3,
-                }}
-              />
-
-              {/* Scan lines */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/20 to-transparent h-1"
-                animate={{
-                  y: [-20, 60],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "linear",
-                }}
-              />
-
-              <span className="relative z-10">[ REVIEWS ]</span>
+              <span className="relative z-10 text-sm sm:text-xl">
+                [ REVIEWS ]
+              </span>
             </motion.div>
           </Link>
 
-          {/* Hologram base with natural breathing */}
-          <motion.div
-            className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"
-            animate={{
-              opacity: [0.4, 0.7, 0.4],
-              scaleX: [0.9, 1.1, 0.9],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
+          {/* Hologram base - static glow */}
+          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50" />
         </motion.div>
       </div>
 
@@ -348,7 +247,9 @@ const HomePage: React.FC = () => {
                   }`}
                 >
                   <div
-                    className={`${i === 2 ? "md:w-1/2 xl:w-full" : "w-full"}`}
+                    className={`${
+                      i === 2 ? "w-full md:w-1/2 xl:w-full sm:w-full" : "w-full"
+                    }`}
                   >
                     <MemoizedGridCard {...card} />
                   </div>
@@ -362,7 +263,7 @@ const HomePage: React.FC = () => {
   );
 };
 
-// Optimized GridCard component with reduced animations
+// Performance optimized GridCard component
 const GridCard: React.FC<{
   title: string;
   description: string;
@@ -388,7 +289,7 @@ const GridCard: React.FC<{
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {/* Main card background with Star Wars angular design */}
+      {/* Main card background with Star Wars angular design - static shadows for performance */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900 border-2 border-yellow-500/60 backdrop-blur-sm"
         style={{
@@ -403,20 +304,6 @@ const GridCard: React.FC<{
             "inset 0 0 25px rgba(255,215,0,0.15), 0 0 30px rgba(255,215,0,0.4)",
         }}
         transition={{ duration: 0.3 }}
-      />
-
-      {/* Optimized scan line effect - reduced frequency */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-500/10 to-transparent h-1"
-        animate={{
-          y: [-20, 320],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "linear",
-          delay: Math.random() * 3,
-        }}
       />
 
       {/* Content */}

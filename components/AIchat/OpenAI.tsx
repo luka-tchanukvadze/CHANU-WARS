@@ -10,7 +10,7 @@ const OpenAI = () => {
   const toggleChat = () => setIsOpen(!isOpen);
 
   return (
-    <div className="fixed bottom-24 right-4">
+    <div className="fixed bottom-24 right-4 z-50">
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
