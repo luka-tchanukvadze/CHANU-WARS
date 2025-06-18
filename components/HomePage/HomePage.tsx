@@ -135,59 +135,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen  relative overflow-hidden">
-      {/* Reviews Button */}
-      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50">
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0,
-            rotateY: -180,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            rotateY: 0,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 150,
-            damping: 15,
-            duration: 0.8,
-          }}
-          className="relative"
-        >
-          <Link href="/reviews" className="block">
-            <motion.div
-              className="relative px-3 py-3 sm:px-10 sm:py-5 bg-black border-2 border-red-500 text-red-400 font-bold text-lg rounded-none overflow-hidden cursor-pointer"
-              style={{
-                fontFamily: "Orbitron, monospace",
-                clipPath:
-                  "polygon(10% 0%, 90% 0%, 100% 25%, 100% 75%, 90% 100%, 10% 100%, 0% 75%, 0% 25%)",
-                letterSpacing: "0.2em",
-                boxShadow:
-                  "0 0 10px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.1)",
-              }}
-              whileHover={{
-                scale: 1.1,
-                borderColor: "rgb(239 68 68)",
-                color: "rgb(248 113 113)",
-                boxShadow:
-                  "0 0 15px rgba(239, 68, 68, 0.7), inset 0 0 15px rgba(239, 68, 68, 0.15)",
-              }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-            >
-              <span className="relative z-10 text-sm sm:text-xl">
-                [ REVIEWS ]
-              </span>
-            </motion.div>
-          </Link>
-
-          {/* Hologram base - static glow */}
-          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50" />
-        </motion.div>
-      </div>
-
       <AnimatePresence>
         {loading ? (
           <motion.div
@@ -231,6 +178,58 @@ const HomePage: React.FC = () => {
           </motion.div>
         ) : (
           <div className="relative z-10 flex items-center justify-center min-h-screen pt-32 pb-16">
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                  rotateY: -180,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  rotateY: 0,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 15,
+                  duration: 0.8,
+                  delay: 0.5, // Add delay so it appears after the main content starts animating
+                }}
+                className="relative"
+              >
+                <Link href="/reviews" className="block">
+                  <motion.div
+                    className="relative px-3 py-3 sm:px-10 sm:py-5 bg-black border-2 border-red-500 text-red-400 font-bold text-lg rounded-none overflow-hidden cursor-pointer"
+                    style={{
+                      fontFamily: "Orbitron, monospace",
+                      clipPath:
+                        "polygon(10% 0%, 90% 0%, 100% 25%, 100% 75%, 90% 100%, 10% 100%, 0% 75%, 0% 25%)",
+                      letterSpacing: "0.2em",
+                      boxShadow:
+                        "0 0 10px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.1)",
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      borderColor: "rgb(239 68 68)",
+                      color: "rgb(248 113 113)",
+                      boxShadow:
+                        "0 0 15px rgba(239, 68, 68, 0.7), inset 0 0 15px rgba(239, 68, 68, 0.15)",
+                    }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="relative z-10 text-sm sm:text-xl">
+                      [ REVIEWS ]
+                    </span>
+                  </motion.div>
+                </Link>
+
+                {/* Hologram base - static glow */}
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50" />
+              </motion.div>
+            </div>
             <motion.nav
               variants={gridContainerVariants}
               initial="hidden"
