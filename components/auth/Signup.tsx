@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const TieFighterIcon = () => (
   <motion.svg
@@ -191,6 +192,13 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center p-4">
+      {/* Home Link */}
+      <Link
+        href="/"
+        className="absolute top-4 left-4 z-20 text-gray-400 hover:text-white transition-colors duration-300 font-mono text-xl sm:text-2xl tracking-wide"
+      >
+        [← HOME]
+      </Link>
       <CircuitPattern faction={formData.faction} />
       <DataStream faction={formData.faction} />
       <ScanLine faction={formData.faction} />
