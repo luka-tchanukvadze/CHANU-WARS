@@ -6,42 +6,47 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-// Mock data for demonstration
+// Mock data updated to match backend schema
 const mockReviews = [
   {
     _id: "1",
     review: "This platform is amazing! The Force is strong with this one.",
     rating: 5,
     createdAt: new Date("2024-01-15"),
-    user: { name: "Luke Skywalker", faction: "jedi" },
+    user: "Luke Skywalker",
+    faction: "jedi",
   },
   {
     _id: "2",
     review: "Impressive... most impressive. The dark side approves.",
     rating: 4,
     createdAt: new Date("2024-01-10"),
-    user: { name: "Darth Vader", faction: "sith" },
+    user: "Darth Vader",
+    faction: "sith",
   },
   {
     _id: "3",
     review: "This is where the fun begins! Excellent experience.",
     rating: 5,
     createdAt: new Date("2024-01-08"),
-    user: { name: "Anakin Skywalker", faction: "jedi" },
+    user: "Anakin Skywalker",
+    faction: "jedi",
   },
   {
     _id: "4",
     review: "I find your lack of features disturbing.",
     rating: 2,
     createdAt: new Date("2024-01-05"),
-    user: { name: "Imperial Officer", faction: "sith" },
+    user: "Imperial Officer",
+    faction: "sith",
   },
   {
     _id: "5",
     review: "The interface is clunky and confusing. Not impressed.",
     rating: 1,
     createdAt: new Date("2024-01-03"),
-    user: { name: "Rebel Pilot", faction: "jedi" },
+    user: "Rebel Pilot",
+    faction: "jedi",
   },
 ];
 
@@ -173,7 +178,7 @@ export default function Reviews() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className={`p-6 rounded-lg border backdrop-blur-sm ${
-                  review.user.faction === "jedi"
+                  review.faction === "jedi"
                     ? "bg-blue-900/20 border-blue-500/30"
                     : "bg-red-900/20 border-red-500/30"
                 }`}
@@ -182,24 +187,22 @@ export default function Reviews() {
                   <div className="flex items-center space-x-3">
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        review.user.faction === "jedi"
-                          ? "bg-blue-600"
-                          : "bg-red-600"
+                        review.faction === "jedi" ? "bg-blue-600" : "bg-red-600"
                       }`}
                     >
                       <span className="text-white text-lg">
-                        {review.user.faction === "jedi" ? "⚔️" : "⚡"}
+                        {review.faction === "jedi" ? "⚔️" : "⚡"}
                       </span>
                     </div>
                     <div>
                       <h3
                         className={`font-bold font-mono ${
-                          review.user.faction === "jedi"
+                          review.faction === "jedi"
                             ? "text-blue-300"
                             : "text-red-300"
                         }`}
                       >
-                        {review.user.name}
+                        {review.user}
                       </h3>
                       <p className="text-gray-500 text-sm font-mono">
                         {formatDate(review.createdAt)}
@@ -208,7 +211,7 @@ export default function Reviews() {
                   </div>
                   <RatingDisplay
                     rating={review.rating}
-                    faction={review.user.faction}
+                    faction={review.faction}
                   />
                 </div>
 
