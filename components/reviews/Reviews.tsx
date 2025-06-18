@@ -4,6 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 // Mock data for demonstration
 const mockReviews = [
@@ -150,6 +151,12 @@ export default function Reviews() {
           <p className="text-gray-400 font-mono">
             Share your experience across the galaxy
           </p>
+          <Link
+            href="/"
+            className="inline-block mt-4 px-6 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-sm tracking-wider rounded transition-colors"
+          >
+            ← RETURN TO BASE
+          </Link>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
