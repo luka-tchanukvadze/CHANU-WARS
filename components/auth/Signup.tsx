@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const TieFighterIcon = () => (
   <motion.svg
@@ -128,6 +131,7 @@ const ScanLine = ({ faction }: { faction: string }) => (
 );
 
 export default function Signup() {
+  const { setUser } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -137,6 +141,7 @@ export default function Signup() {
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.9, rotateY: -20 },
@@ -190,10 +195,23 @@ export default function Signup() {
   const currentTheme =
     factionThemes[formData.faction as keyof typeof factionThemes];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log(formData);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/v1/users/signup",
+        { ...formData },
+        { withCredentials: true }
+      );
+      console.log(res.data.data.user);
+      setUser(res.data.data.user); // <- Save user
+      setIsSubmitting(false);
+      router.push("/reviews");
+    } catch (error) {
+      console.error(error);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -730,22 +748,16 @@ export default function Signup() {
               <span className="text-gray-500">
                 Already {formData.faction === "jedi" ? "trained" : "initiated"}?
               </span>
-              <motion.a
-                href="#"
+              <Link
+                href="/login"
                 className={`${
                   formData.faction === "jedi"
                     ? "text-yellow-400 hover:text-yellow-300"
                     : "text-orange-400 hover:text-orange-300"
                 } font-bold tracking-wide`}
-                whileHover={{
-                  scale: 1.1,
-                  textShadow: `0 0 15px rgba(${
-                    formData.faction === "jedi" ? "255, 255, 0" : "255, 165, 0"
-                  }, 0.6)`,
-                }}
               >
                 [ACCESS TERMINAL]
-              </motion.a>
+              </Link>
             </div>
           </motion.div>
 
