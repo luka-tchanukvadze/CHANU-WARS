@@ -188,6 +188,12 @@ export default function Login() {
   const currentTheme =
     factionThemes[formData.faction as keyof typeof factionThemes];
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    console.log(formData);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center p-4">
       {/* Home Link */}
@@ -365,7 +371,7 @@ export default function Login() {
           </motion.div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {/* Email Field */}
             <motion.div variants={itemVariants}>
               <label
@@ -458,6 +464,7 @@ export default function Login() {
                   }-400 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
                   placeholder="••••••••••••"
                   whileFocus={{ scale: 1.01 }}
+                  required
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <motion.div
@@ -495,11 +502,11 @@ export default function Login() {
             <motion.div variants={itemVariants} className="pt-4">
               <motion.button
                 type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsSubmitting(true);
-                  setTimeout(() => setIsSubmitting(false), 3000);
-                }}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   setIsSubmitting(true);
+                //   setTimeout(() => setIsSubmitting(false), 3000);
+                // }}
                 className={`w-full py-4 bg-gradient-to-r ${
                   formData.faction === "jedi"
                     ? "from-cyan-600 via-blue-600 to-purple-600"

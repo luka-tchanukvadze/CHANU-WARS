@@ -129,10 +129,10 @@ const ScanLine = ({ faction }: { faction: string }) => (
 
 export default function Signup() {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirm: "",
     faction: "jedi",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -189,6 +189,12 @@ export default function Signup() {
 
   const currentTheme =
     factionThemes[formData.faction as keyof typeof factionThemes];
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    console.log(formData);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center p-4">
@@ -371,8 +377,8 @@ export default function Signup() {
           </motion.div>
 
           {/* Form */}
-          <form className="space-y-4">
-            {/* Username Field */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {/* name Field */}
             <motion.div variants={itemVariants}>
               <label
                 className={`block ${
@@ -388,14 +394,14 @@ export default function Signup() {
               <motion.div className="relative">
                 <motion.input
                   type="text"
-                  value={formData.username}
+                  value={formData.name}
                   onChange={(e) =>
-                    setFormData({ ...formData, username: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
-                  onFocus={() => setFocusedField("username")}
+                  onFocus={() => setFocusedField("name")}
                   onBlur={() => setFocusedField(null)}
                   className={`w-full px-4 py-3 bg-black/70 border ${
-                    focusedField === "username"
+                    focusedField === "name"
                       ? `border-${currentTheme.secondary}-400`
                       : "border-gray-600"
                   } rounded-lg text-${
@@ -407,13 +413,13 @@ export default function Signup() {
                       : "Darth Revan"
                   }
                   whileFocus={{ scale: 1.01 }}
+                  required
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <motion.div
                     className={`w-2 h-2 bg-${currentTheme.primary}-400 rounded-full`}
                     animate={{
-                      opacity:
-                        focusedField === "username" ? [0.3, 1, 0.3] : 0.3,
+                      opacity: focusedField === "name" ? [0.3, 1, 0.3] : 0.3,
                     }}
                     transition={{
                       duration: 1,
@@ -422,7 +428,7 @@ export default function Signup() {
                   />
                 </div>
                 <AnimatePresence>
-                  {focusedField === "username" && (
+                  {focusedField === "name" && (
                     <motion.div
                       initial={{ opacity: 0, scaleX: 0 }}
                       animate={{ opacity: 1, scaleX: 1 }}
@@ -526,6 +532,7 @@ export default function Signup() {
                   }-400 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
                   placeholder="••••••••••••"
                   whileFocus={{ scale: 1.01 }}
+                  required
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <motion.div
@@ -575,17 +582,17 @@ export default function Signup() {
               <motion.div className="relative">
                 <motion.input
                   type="password"
-                  value={formData.confirmPassword}
+                  value={formData.passwordConfirm}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      confirmPassword: e.target.value,
+                      passwordConfirm: e.target.value,
                     })
                   }
-                  onFocus={() => setFocusedField("confirmPassword")}
+                  onFocus={() => setFocusedField("passwordConfirm")}
                   onBlur={() => setFocusedField(null)}
                   className={`w-full px-4 py-3 bg-black/70 border ${
-                    focusedField === "confirmPassword"
+                    focusedField === "passwordConfirm"
                       ? `border-${currentTheme.secondary}-400`
                       : "border-gray-600"
                   } rounded-lg text-${
@@ -593,13 +600,14 @@ export default function Signup() {
                   }-400 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
                   placeholder="••••••••••••"
                   whileFocus={{ scale: 1.01 }}
+                  required
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <motion.div
                     className={`w-2 h-2 bg-purple-400 rounded-full`}
                     animate={{
                       opacity:
-                        focusedField === "confirmPassword"
+                        focusedField === "passwordConfirm"
                           ? [0.3, 1, 0.3]
                           : 0.3,
                     }}
@@ -610,7 +618,7 @@ export default function Signup() {
                   />
                 </div>
                 <AnimatePresence>
-                  {focusedField === "confirmPassword" && (
+                  {focusedField === "passwordConfirm" && (
                     <motion.div
                       initial={{ opacity: 0, scaleX: 0 }}
                       animate={{ opacity: 1, scaleX: 1 }}
@@ -626,11 +634,6 @@ export default function Signup() {
             <motion.div variants={itemVariants} className="pt-4">
               <motion.button
                 type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsSubmitting(true);
-                  setTimeout(() => setIsSubmitting(false), 3500);
-                }}
                 className={`w-full py-4 bg-gradient-to-r ${
                   formData.faction === "jedi"
                     ? "from-cyan-600 via-blue-600 to-purple-600"

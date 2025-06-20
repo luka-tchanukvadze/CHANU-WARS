@@ -127,10 +127,11 @@ export default function Reviews() {
     e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setNewReview({ review: "", rating: 5, faction: "jedi" });
-    }, 2000);
+    // setTimeout(() => {
+    //   setIsSubmitting(false);
+    //   setNewReview({ review: "", rating: 5, faction: "jedi" });
+    // }, 2000);
+    console.log(newReview);
   };
 
   const formatDate = (date: Date) => {
