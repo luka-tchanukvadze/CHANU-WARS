@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 const TieFighterIcon = () => (
   <motion.svg
@@ -128,6 +130,7 @@ const ScanLine = ({ faction }: { faction: string }) => (
 );
 
 export default function Login() {
+  const { setUser } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -188,10 +191,19 @@ export default function Login() {
   const currentTheme =
     factionThemes[formData.faction as keyof typeof factionThemes];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log(formData);
+    try {
+      const res = await axios.post(
+        "https://chanu-wars-back.vercel.app/api/v1/users/login",
+        { formData },
+        { withCredentials: true }
+      );
+      setUser(res.data.data.user); // <- Save user
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -624,23 +636,17 @@ export default function Login() {
               <span className="text-gray-500">
                 New {formData.faction === "jedi" ? "Padawan" : "Apprentice"}?
               </span>
-              <motion.a
-                href="#"
+              <Link
+                href="/signup"
                 className={`${
                   formData.faction === "jedi"
                     ? "text-yellow-400 hover:text-yellow-300"
                     : "text-orange-400 hover:text-orange-300"
                 } font-bold tracking-wide`}
-                whileHover={{
-                  scale: 1.1,
-                  textShadow: `0 0 15px rgba(${
-                    formData.faction === "jedi" ? "255, 255, 0" : "255, 165, 0"
-                  }, 0.6)`,
-                }}
               >
                 [REQUEST{" "}
                 {formData.faction === "jedi" ? "TRAINING" : "INITIATION"}]
-              </motion.a>
+              </Link>
             </div>
           </motion.div>
 

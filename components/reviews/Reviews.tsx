@@ -2,9 +2,11 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 // Mock data updated to match backend schema
 const mockReviews = [
@@ -115,6 +117,7 @@ const RatingDisplay = ({
 };
 
 export default function Reviews() {
+  const { user } = useAuth();
   const [reviews] = useState(mockReviews);
   const [newReview, setNewReview] = useState({
     review: "",
@@ -122,6 +125,13 @@ export default function Reviews() {
     faction: "jedi",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login"); // Redirect if not logged in
+    }
+  }, [user, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
