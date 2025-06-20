@@ -11,6 +11,7 @@ import StartMusic from "@/components/Music/StartMusic";
 import ControlMusic from "@/components/Music/ControlMusic";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import OpenAI from "@/components/AIchat/OpenAI";
+import { AuthProvider } from "@/context/AuthContext";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -44,7 +45,7 @@ export default function RootLayout({
           ) : (
             <>
               {<ControlMusic audioRef={audioRef} audioStarted={audioStarted} />}
-              {children}
+              <AuthProvider>{children}</AuthProvider>
               <OpenAI />
             </>
           )}
