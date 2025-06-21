@@ -418,7 +418,7 @@ export default function Login() {
                       : "border-gray-600"
                   } rounded-lg text-${
                     currentTheme.primary
-                  }-400 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
+                  }-500 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
                   placeholder={
                     formData.faction === "jedi"
                       ? "master@jedi-temple.org"
@@ -479,7 +479,7 @@ export default function Login() {
                       : "border-gray-600"
                   } rounded-lg text-${
                     currentTheme.primary
-                  }-400 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
+                  }-500 placeholder-gray-500 focus:outline-none transition-all duration-300 font-mono text-sm`}
                   placeholder="••••••••••••"
                   whileFocus={{ scale: 1.01 }}
                   required
