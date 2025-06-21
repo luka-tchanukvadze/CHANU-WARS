@@ -200,7 +200,8 @@ export default function Signup() {
     setIsSubmitting(true);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/signup",
+        "https://chanu-wars-back.vercel.app/api/v1/users/signup",
+        // "http://localhost:8000/api/v1/users/signup",
         { ...formData },
         { withCredentials: true }
       );

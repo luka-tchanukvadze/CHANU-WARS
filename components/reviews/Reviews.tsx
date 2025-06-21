@@ -7,6 +7,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+
+interface Review {
+  _id: string;
+  review: string;
+  rating: number;
+  faction: string;
+  createdAt: Date; // or Date if you parse it
+}
 
 // Mock data updated to match backend schema
 const mockReviews = [
@@ -118,7 +127,9 @@ const RatingDisplay = ({
 
 export default function Reviews() {
   const { user, isLoading } = useAuth();
-  const [reviews] = useState(mockReviews);
+  // const [reviews] = useState(mockReviews);
+  const [reviews, setReviews] = useState<Review[]>([]);
+
   const [newReview, setNewReview] = useState({
     review: "",
     rating: 5,
@@ -133,19 +144,49 @@ export default function Reviews() {
     }
   }, [user, isLoading, router]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!isLoading && user) {
+      const fetchReviews = async () => {
+        try {
+          const res = await axios.get(
+            "https://chanu-wars-back.vercel.app/api/v1/reviews",
+            {
+              // const res = await axios.get("http://localhost:8000/api/v1/reviews", {
+              withCredentials: true,
+            }
+          );
+          setReviews(res.data.data.data); // adjust based on your API response
+          console.log("reviews", reviews);
+        } catch (error) {
+          console.error("Failed to fetch reviews:", error);
+        }
+      };
+      fetchReviews();
+    }
+  }, [user, isLoading, isSubmitting]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    // setTimeout(() => {
-    //   setIsSubmitting(false);
-    //   setNewReview({ review: "", rating: 5, faction: "jedi" });
-    // }, 2000);
-    console.log(newReview);
+    try {
+      const res = await axios.post(
+        "https://chanu-wars-back.vercel.app/api/v1/reviews",
+        // "http://localhost:8000/api/v1/reviews",
+        { ...newReview },
+        { withCredentials: true }
+      );
+      setNewReview(res.data.data.data);
+      setIsSubmitting(false);
+      router.push("/reviews");
+    } catch (error) {
+      console.error(error);
+      setIsSubmitting(false);
+    }
   };
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-US", {
+  const formatDate = (date: string | Date) => {
+    const d = new Date(date); // converts string to Date
+    return d.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -213,7 +254,7 @@ export default function Reviews() {
                             : "text-red-300"
                         }`}
                       >
-                        {review.user}
+                        {user?.name}
                       </h3>
                       <p className="text-gray-500 text-sm font-mono">
                         {formatDate(review.createdAt)}

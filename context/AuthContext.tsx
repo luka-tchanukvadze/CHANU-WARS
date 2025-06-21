@@ -30,9 +30,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/users/me", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://chanu-wars-back.vercel.app/api/v1/users/me",
+          {
+            // const res = await axios.get("http://localhost:8000/api/v1/users/me", {
+            withCredentials: true,
+          }
+        );
         setUser(res.data.data.data);
         console.log("user", user);
       } catch (error) {
