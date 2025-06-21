@@ -14,6 +14,7 @@ interface Review {
   review: string;
   rating: number;
   faction: string;
+  user: { _id: string; name: string }[];
   createdAt: Date; // or Date if you parse it
 }
 
@@ -254,7 +255,7 @@ export default function Reviews() {
                             : "text-red-300"
                         }`}
                       >
-                        {user?.name}
+                        {review.user[0]?.name}
                       </h3>
                       <p className="text-gray-500 text-sm font-mono">
                         {formatDate(review.createdAt)}
