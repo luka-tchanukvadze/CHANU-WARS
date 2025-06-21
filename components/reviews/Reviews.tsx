@@ -117,7 +117,7 @@ const RatingDisplay = ({
 };
 
 export default function Reviews() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const [reviews] = useState(mockReviews);
   const [newReview, setNewReview] = useState({
     review: "",
@@ -128,10 +128,10 @@ export default function Reviews() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login"); // Redirect if not logged in
+    if (!isLoading && !user) {
+      router.push("/login");
     }
-  }, [user, router]);
+  }, [user, isLoading, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

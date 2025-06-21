@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
-
+import { useRouter } from "next/navigation";
 const TieFighterIcon = () => (
   <motion.svg
     width="50"
@@ -138,6 +138,7 @@ export default function Login() {
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.9, rotateY: -20 },
@@ -196,13 +197,17 @@ export default function Login() {
     setIsSubmitting(true);
     try {
       const res = await axios.post(
-        "https://chanu-wars-back.vercel.app/api/v1/users/login",
-        { formData },
+        "http://localhost:8000/api/v1/users/login",
+        { ...formData },
         { withCredentials: true }
       );
-      setUser(res.data.data.user); // <- Save user
+      console.log(res.data.data.user);
+      setUser(res.data.data.user);
+      setIsSubmitting(false);
+      router.push("/reviews");
     } catch (error) {
       console.error(error);
+      setIsSubmitting(false);
     }
   };
 

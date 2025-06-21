@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const TieFighterIcon = () => (
   <motion.svg
@@ -205,7 +205,7 @@ export default function Signup() {
         { withCredentials: true }
       );
       console.log(res.data.data.user);
-      setUser(res.data.data.user); // <- Save user
+      setUser(res.data.data.user);
       setIsSubmitting(false);
       router.push("/reviews");
     } catch (error) {
