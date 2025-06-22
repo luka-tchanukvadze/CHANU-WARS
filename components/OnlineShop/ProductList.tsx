@@ -1,7 +1,7 @@
 "use client";
 import useCart from "@/hooks/useCart";
 import useProducts from "@/hooks/useProducts";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import Product from "./Product";
 
 const ProductList = () => {
@@ -29,8 +29,10 @@ const ProductList = () => {
   }
 
   const content = (
-    <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-8 lg:p-12 xl:px-32 2xl:px-52">
-      {pageContent}
+    <main className="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 max-w-7xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6 sm:gap-8 lg:gap-10">
+        {pageContent}
+      </div>
     </main>
   );
 

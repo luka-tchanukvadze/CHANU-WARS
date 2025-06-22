@@ -1,11 +1,13 @@
 "use client";
 
-import { ProductType } from "@/context/ProductsProvider";
-import { ReducerActionType, ReducerAction } from "@/context/CartProvider";
-import { ReactElement, memo } from "react";
+import type React from "react";
+
+import type { ProductType } from "@/context/ProductsProvider";
+import type { ReducerActionType, ReducerAction } from "@/context/CartProvider";
+import { type ReactElement, memo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart, Zap } from "lucide-react";
 
 type PropsType = {
   product: ProductType;
@@ -28,7 +30,7 @@ const Product = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden relative"
     >
       <div className="relative">
         <Image
@@ -39,9 +41,87 @@ const Product = ({
           className="w-full h-48 object-cover"
         />
         {inCart && (
-          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-            In Cart
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 25,
+            }}
+            className="absolute inset-0 bg-gradient-to-br from-cyan-900/80 via-blue-900/70 to-indigo-900/80 flex items-center justify-center"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.05) 50%, transparent 100%)
+              `,
+            }}
+          >
+            {/* Holographic scan lines */}
+            <div className="absolute inset-0 opacity-30">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.1) 2px, rgba(0, 255, 255, 0.1) 4px)",
+                }}
+              />
+            </div>
+
+            {/* Glowing border */}
+            <div className="absolute inset-2 border border-cyan-400/50 rounded-lg shadow-[0_0_20px_rgba(0,255,255,0.3)]" />
+
+            {/* Central hologram panel */}
+            <div className="relative z-0 flex flex-col items-center space-y-1 sm:space-y-2">
+              <motion.div
+                animate={{
+                  boxShadow: [
+                    "0 0 20px rgba(0, 255, 255, 0.5)",
+                    "0 0 30px rgba(0, 255, 255, 0.8)",
+                    "0 0 20px rgba(0, 255, 255, 0.5)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+                className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm border border-cyan-400/40 rounded-lg p-2 sm:p-3"
+              >
+                <Zap
+                  className="w-4 h-4 sm:w-6 sm:h-6 text-cyan-300"
+                  strokeWidth={2}
+                />
+              </motion.div>
+
+              <div className="bg-black/40 backdrop-blur-sm border border-cyan-400/30 rounded px-2 py-0.5 sm:px-3 sm:py-1">
+                <motion.span
+                  animate={{
+                    textShadow: [
+                      "0 0 10px rgba(0, 255, 255, 0.8)",
+                      "0 0 20px rgba(0, 255, 255, 1)",
+                      "0 0 10px rgba(0, 255, 255, 0.8)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                  className="text-cyan-300 font-mono text-[10px] sm:text-xs tracking-wider uppercase"
+                >
+                  ACQUIRED
+                </motion.span>
+              </div>
+            </div>
+
+            {/* Corner accents */}
+            <div className="absolute top-2 left-2 w-3 h-3 sm:w-4 sm:h-4 border-l-2 border-t-2 border-cyan-400/60" />
+            <div className="absolute top-2 right-2 w-3 h-3 sm:w-4 sm:h-4 border-r-2 border-t-2 border-cyan-400/60" />
+            <div className="absolute bottom-2 left-2 w-3 h-3 sm:w-4 sm:h-4 border-l-2 border-b-2 border-cyan-400/60" />
+            <div className="absolute bottom-2 right-2 w-3 h-3 sm:w-4 sm:h-4 border-r-2 border-b-2 border-cyan-400/60" />
+          </motion.div>
         )}
       </div>
       <div className="p-4">
