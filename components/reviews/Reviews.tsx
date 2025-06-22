@@ -15,7 +15,7 @@ interface Review {
   rating: number;
   faction: string;
   user: { _id: string; name: string }[];
-  createdAt: Date; // or Date if you parse it
+  createdAt: Date;
 }
 
 // Mock data updated to match backend schema
@@ -130,7 +130,8 @@ export default function Reviews() {
   const { user, isLoading } = useAuth();
   // const [reviews] = useState(mockReviews);
   const [reviews, setReviews] = useState<Review[]>([]);
-
+  const [hasUserReviewed, setHasUserReviewed] = useState(false);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   const [newReview, setNewReview] = useState({
     review: "",
     rating: 5,
@@ -148,6 +149,7 @@ export default function Reviews() {
   useEffect(() => {
     if (!isLoading && user) {
       const fetchReviews = async () => {
+        setReviewsLoading(true);
         try {
           const res = await axios.get(
             "https://chanu-wars-back.vercel.app/api/v1/reviews",
@@ -156,10 +158,14 @@ export default function Reviews() {
               withCredentials: true,
             }
           );
-          setReviews(res.data.data.data); // adjust based on your API response
-          console.log("reviews", reviews);
+          setReviews(res.data.data.data);
+          setHasUserReviewed(
+            res.data.data.data.some((el: any) => el.user[0]._id === user?._id)
+          );
+          setReviewsLoading(false);
         } catch (error) {
           console.error("Failed to fetch reviews:", error);
+          setReviewsLoading(false);
         }
       };
       fetchReviews();
@@ -224,55 +230,70 @@ export default function Reviews() {
               TRANSMISSION LOG
             </h2>
 
-            {reviews.map((review, index) => (
-              <motion.div
-                key={review._id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className={`p-6 rounded-lg border backdrop-blur-sm ${
-                  review.faction === "jedi"
-                    ? "bg-blue-900/20 border-blue-500/30"
-                    : "bg-red-900/20 border-red-500/30"
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center space-x-3">
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        review.faction === "jedi" ? "bg-blue-600" : "bg-red-600"
-                      }`}
-                    >
-                      <span className="text-white text-lg">
-                        {review.faction === "jedi" ? "⚔️" : "⚡"}
-                      </span>
-                    </div>
-                    <div>
-                      <h3
-                        className={`font-bold font-mono ${
+            {reviewsLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="flex items-center space-x-3 text-cyan-400">
+                  <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                  <span className="font-mono">LOADING TRANSMISSIONS...</span>
+                </div>
+              </div>
+            ) : reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <motion.div
+                  key={review._id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`p-6 rounded-lg border backdrop-blur-sm ${
+                    review.faction === "jedi"
+                      ? "bg-blue-900/20 border-blue-500/30"
+                      : "bg-red-900/20 border-red-500/30"
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center space-x-3">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
                           review.faction === "jedi"
-                            ? "text-blue-300"
-                            : "text-red-300"
+                            ? "bg-blue-600"
+                            : "bg-red-600"
                         }`}
                       >
-                        {review.user[0]?.name}
-                      </h3>
-                      <p className="text-gray-500 text-sm font-mono">
-                        {formatDate(review.createdAt)}
-                      </p>
+                        <span className="text-white text-lg">
+                          {review.faction === "jedi" ? "⚔️" : "⚡"}
+                        </span>
+                      </div>
+                      <div>
+                        <h3
+                          className={`font-bold font-mono ${
+                            review.faction === "jedi"
+                              ? "text-blue-300"
+                              : "text-red-300"
+                          }`}
+                        >
+                          {review.user[0]?.name}
+                        </h3>
+                        <p className="text-gray-500 text-sm font-mono">
+                          {formatDate(review.createdAt)}
+                        </p>
+                      </div>
                     </div>
+                    <RatingDisplay
+                      rating={review.rating}
+                      faction={review.faction}
+                    />
                   </div>
-                  <RatingDisplay
-                    rating={review.rating}
-                    faction={review.faction}
-                  />
-                </div>
 
-                <p className="text-gray-300 font-mono leading-relaxed">
-                  "{review.review}"
-                </p>
-              </motion.div>
-            ))}
+                  <p className="text-gray-300 font-mono leading-relaxed">
+                    "{review.review}"
+                  </p>
+                </motion.div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-400 font-mono">
+                NO TRANSMISSIONS FOUND
+              </div>
+            )}
           </div>
 
           {/* Add Review Form */}
@@ -400,26 +421,39 @@ export default function Reviews() {
                   >
                     MESSAGE
                   </label>
-                  <textarea
-                    value={newReview.review}
-                    onChange={(e) =>
-                      setNewReview({ ...newReview, review: e.target.value })
-                    }
-                    className={`w-full px-3 py-2 bg-black/70 border rounded text-white placeholder-gray-500 focus:outline-none transition-all font-mono text-sm resize-none ${
-                      newReview.faction === "jedi"
-                        ? "border-gray-600 focus:border-cyan-400"
-                        : "border-gray-600 focus:border-orange-400"
-                    }`}
-                    rows={4}
-                    placeholder="Share your experience..."
-                    required
-                  />
+                  {!hasUserReviewed ? (
+                    <textarea
+                      value={newReview.review}
+                      onChange={(e) =>
+                        setNewReview({ ...newReview, review: e.target.value })
+                      }
+                      className={`w-full px-3 py-2 bg-black/70 border rounded text-white placeholder-gray-500 focus:outline-none transition-all font-mono text-sm resize-none ${
+                        newReview.faction === "jedi"
+                          ? "border-gray-600 focus:border-cyan-400"
+                          : "border-gray-600 focus:border-orange-400"
+                      }`}
+                      rows={4}
+                      placeholder="Share your experience..."
+                      required
+                    />
+                  ) : (
+                    <div className="p-4 rounded border border-yellow-500/30 bg-yellow-900/20">
+                      <p className="text-yellow-300 font-mono text-sm text-center">
+                        ⚠️ TRANSMISSION ALREADY SENT
+                      </p>
+                      <p className="text-yellow-400 font-mono text-xs text-center mt-1">
+                        You have already submitted your review
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting || !newReview.review.trim()}
+                  disabled={
+                    isSubmitting || !newReview.review.trim() || hasUserReviewed
+                  }
                   className={`w-full py-3 rounded font-mono font-bold text-sm tracking-wider transition-all ${
                     newReview.faction === "jedi"
                       ? "bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500"
