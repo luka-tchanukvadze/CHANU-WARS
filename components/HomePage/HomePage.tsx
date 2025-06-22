@@ -217,8 +217,8 @@ const HomePage: React.FC = () => {
                       boxShadow:
                         "0 0 15px rgba(239, 68, 68, 0.7), inset 0 0 15px rgba(239, 68, 68, 0.15)",
                     }}
-                    whileTap={{ scale: 0.9 }}
-                    transition={{ duration: 0.2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.1 }}
                   >
                     <span className="relative z-10 text-sm sm:text-xl">
                       [ REVIEWS ]
@@ -285,7 +285,7 @@ const GridCard: React.FC<{
         rotateX: 2,
         z: 50,
       }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Main card background with Star Wars angular design - static shadows for performance */}
@@ -351,8 +351,8 @@ const GridCard: React.FC<{
               boxShadow: "0 0 25px rgba(255, 215, 0, 0.5)",
               borderColor: "rgba(255, 215, 0, 1)",
             }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 500, damping: 25 }}
           >
             <span className="relative z-10 font-bold tracking-wide text-black text-sm">
               EXPLORE
