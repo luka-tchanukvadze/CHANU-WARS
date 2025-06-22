@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -139,6 +141,7 @@ export default function Signup() {
     passwordConfirm: "",
     faction: "jedi",
   });
+  const [passwordError, setPasswordError] = useState("");
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -197,6 +200,28 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check password minimum length
+    if (formData.password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+      return;
+    }
+
+    // Check confirm password minimum length
+    if (formData.passwordConfirm.length < 8) {
+      setPasswordError("Confirm password must be at least 8 characters long");
+      return;
+    }
+
+    // Check if passwords match
+    if (formData.password !== formData.passwordConfirm) {
+      setPasswordError("Passwords do not match");
+      return;
+    }
+
+    // Clear any existing password error
+    setPasswordError("");
+
     setIsSubmitting(true);
     try {
       const res = await axios.post(
@@ -648,6 +673,17 @@ export default function Signup() {
                 </AnimatePresence>
               </motion.div>
             </motion.div>
+
+            {/* Password Error Message */}
+            {passwordError && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-xs font-mono text-center bg-red-900/20 border border-red-500/30 rounded-lg py-2 px-3"
+              >
+                {passwordError}
+              </motion.div>
+            )}
 
             {/* Submit Button */}
             <motion.div variants={itemVariants} className="pt-4">
