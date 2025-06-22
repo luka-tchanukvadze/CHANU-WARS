@@ -28,6 +28,7 @@ const InfoFooter = () => {
             <a
               href="https://www.linkedin.com/in/luka-tchanukvadze-600211257"
               className="text-black hover:text-yellow-100 transition-colors duration-300"
+              target="_blank"
             >
               <span className="sr-only">LinkedIn</span>
               <svg
@@ -42,6 +43,7 @@ const InfoFooter = () => {
             <a
               href="https://github.com/luka-tchanukvadze"
               className="text-black hover:text-yellow-100 transition-colors duration-300"
+              target="_blank"
             >
               <span className="sr-only">GitHub</span>
               <svg
