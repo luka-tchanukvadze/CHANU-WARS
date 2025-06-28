@@ -1,4 +1,5 @@
 ## live version: https://chanu-wars.vercel.app/
+## backend API: https://github.com/luka-tchanukvadze/CHANU-WARS-BACK
 
 🌌 CHANU WARS: The Ultimate Star Wars Experience
 - Welcome to CHANU WARS, the project where your love for Star Wars meets creativity and technology. 🚀 This isn't just another project, it's a massive, ever-evolving Star Wars universe in the making. Whether you're a die-hard fan or someone who's just curious, this project is here to inspire you to dive deep into the Star Wars saga and maybe even create something of your own.
