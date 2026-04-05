@@ -5,15 +5,13 @@ import Opening from "@/components/Opening/Opening";
 
 export default function Home() {
   const [showHomePage, setShowHomePage] = useState(
-    sessionStorage.getItem("showHomePage") || ""
+    sessionStorage.getItem("showHomePage") || "",
   );
 
   const setSessionStorage = () => {
     sessionStorage.setItem("showHomePage", "noSWopening");
     setShowHomePage("noSWopening");
   };
-
-  // i am starting to clean up this code
 
   return (
     <>
