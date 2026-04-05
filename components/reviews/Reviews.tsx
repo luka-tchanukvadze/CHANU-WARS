@@ -152,7 +152,7 @@ export default function Reviews() {
         setReviewsLoading(true);
         try {
           const res = await axios.get(
-            "https://chanu-wars-back.vercel.app/api/v1/reviews",
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/reviews`,
             {
               // const res = await axios.get("http://localhost:8000/api/v1/reviews", {
               withCredentials: true,
@@ -177,7 +177,7 @@ export default function Reviews() {
     setIsSubmitting(true);
     try {
       const res = await axios.post(
-        "https://chanu-wars-back.vercel.app/api/v1/reviews",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/reviews`,
         // "http://localhost:8000/api/v1/reviews",
         { ...newReview },
         { withCredentials: true }

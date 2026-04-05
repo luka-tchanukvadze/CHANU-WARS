@@ -40,7 +40,7 @@ export default function JediArchives() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("https://chanu-wars-back.vercel.app/randomInfos")
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/randomInfos`)
       .then((response) => {
         setArchiveEntries(response.data.data.data);
         setIsLoading(false);

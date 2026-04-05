@@ -225,7 +225,7 @@ export default function Signup() {
     setIsSubmitting(true);
     try {
       const res = await axios.post(
-        "https://chanu-wars-back.vercel.app/api/v1/users/signup",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/signup`,
         // "http://localhost:8000/api/v1/users/signup",
         { ...formData },
         { withCredentials: true }

@@ -23,7 +23,7 @@ export default function AddInfo() {
     };
 
     try {
-      await axios.post("https://chanu-wars-back.vercel.app/randomInfos", data);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/randomInfos`, data);
       // await axios.post("http://localhost:5555/randomInfos", data);
       setIsSubmitted(true);
       setTitle("");
