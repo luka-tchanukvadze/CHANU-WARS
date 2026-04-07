@@ -103,7 +103,7 @@ export const xwing_effect = (() => {
         emitter.sizeSpline_.AddPoint(0.25, 2.0);
         emitter.sizeSpline_.AddPoint(0.75, 0.5);
         emitter.sizeSpline_.AddPoint(1.0, 0.25);
-        emitter.SetEmissionRate(500);
+        emitter.SetEmissionRate(250);
         emitter.blend_ = 0.0;  
         this.blasterFX_.AddEmitter(emitter);
         emitter.AddParticles(10);

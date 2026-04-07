@@ -305,20 +305,6 @@ export const particle_system = (() => {
     UpdateParticles_(timeElapsed) {
       this.particles_ = this.emitters_.map(e => e.particles_);
       this.particles_ = this.particles_.flat();
-      this.particles_.sort((a, b) => {
-        const d1 = this.camera_.position.distanceTo(a.position);
-        const d2 = this.camera_.position.distanceTo(b.position);
-  
-        if (d1 > d2) {
-          return -1;
-        }
-  
-        if (d1 < d2) {
-          return 1;
-        }
-  
-        return 0;
-      });
     }
 
     UpdateEmitters_(timeElapsed) {

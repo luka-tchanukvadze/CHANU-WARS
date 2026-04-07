@@ -255,13 +255,14 @@ export const threejs_component = (() => {
 
     InitEntity() {
       this.threejs_ = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: false,
+        powerPreference: 'high-performance',
       });
       this.threejs_.outputEncoding = THREE.sRGBEncoding;
       // this.threejs_.gammaFactor = 2.2;
       this.threejs_.shadowMap.enabled = true;
       this.threejs_.shadowMap.type = THREE.PCFSoftShadowMap;
-      this.threejs_.setPixelRatio(window.devicePixelRatio);
+      this.threejs_.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       this.threejs_.setSize(window.innerWidth, window.innerHeight);
       this.threejs_.domElement.id = 'threejs';
       this.threejs_.physicallyCorrectLights = true;
@@ -295,8 +296,8 @@ export const threejs_component = (() => {
       light.target.position.set(0, 0, 0);
       light.castShadow = true;
       light.shadow.bias = -0.001;
-      light.shadow.mapSize.width = 4096;
-      light.shadow.mapSize.height = 4096;
+      light.shadow.mapSize.width = 2048;
+      light.shadow.mapSize.height = 2048;
       light.shadow.camera.near = 1.0;
       light.shadow.camera.far = 1000.0;
       light.shadow.camera.left = 500;

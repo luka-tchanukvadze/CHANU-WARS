@@ -193,7 +193,7 @@ export const ammojs_component = (() => {
     }
 
     StepSimulation(timeElapsedS) {
-      this.physicsWorld_.stepSimulation(timeElapsedS, 10);
+      this.physicsWorld_.stepSimulation(timeElapsedS, 5);
 
       const dispatcher = this.physicsWorld_.getDispatcher();
       const numManifolds = this.dispatcher_.getNumManifolds();

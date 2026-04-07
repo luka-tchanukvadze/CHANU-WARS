@@ -152,24 +152,24 @@ export const explode_component = (() => {
         emitter.sizeSpline_.AddPoint(1.0, 0.5);
         emitter.blend_ = 0.0;
         emitter.delay_ = i * 0.5;
-        emitter.AddParticles(200);
-  
+        emitter.AddParticles(100);
+
         this.particles_.AddEmitter(emitter);
-  
+
         emitter = new ExplosionEffectEmitter(p);
         emitter.alphaSpline_.AddPoint(0.0, 0.0);
         emitter.alphaSpline_.AddPoint(0.7, 1.0);
         emitter.alphaSpline_.AddPoint(1.0, 0.0);
-        
+
         emitter.colourSpline_.AddPoint(0.0, new THREE.Color(0x000000));
         emitter.colourSpline_.AddPoint(1.0, new THREE.Color(0x000000));
-        
+
         emitter.sizeSpline_.AddPoint(0.0, 0.5);
         emitter.sizeSpline_.AddPoint(0.5, 4.0);
         emitter.sizeSpline_.AddPoint(1.0, 4.0);
         emitter.blend_ = 1.0;
         emitter.delay_ = i * 0.5 + 0.25;
-        emitter.AddParticles(50);
+        emitter.AddParticles(25);
   
         this.particles_.AddEmitter(emitter);
       }
