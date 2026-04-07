@@ -243,7 +243,7 @@ export default function Reviews() {
                   key={review._id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: Math.min(index * 0.1, 0.5) }}
                   className={`p-6 rounded-lg border backdrop-blur-sm ${
                     review.faction === "jedi"
                       ? "bg-blue-900/20 border-blue-500/30"

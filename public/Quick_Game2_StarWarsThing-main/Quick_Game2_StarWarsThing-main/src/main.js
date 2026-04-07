@@ -15,7 +15,6 @@ import {math} from './math.js';
 
 import {THREE} from './three-defs.js';
 
-import {initTouchControls} from './touch-controls.js';
 
 
 class QuickGame2_Sequel {
@@ -156,7 +155,6 @@ class QuickGame2_Sequel {
 let _APP = null;
 
 window.addEventListener('DOMContentLoaded', () => {
-  initTouchControls();
   const _Setup = () => {
     Ammo().then(function(AmmoLib) {
       Ammo = AmmoLib;
