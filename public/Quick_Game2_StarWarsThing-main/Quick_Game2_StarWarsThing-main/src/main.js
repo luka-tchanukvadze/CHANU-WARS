@@ -15,6 +15,8 @@ import {math} from './math.js';
 
 import {THREE} from './three-defs.js';
 
+import {initTouchControls} from './touch-controls.js';
+
 
 class QuickGame2_Sequel {
   constructor() {
@@ -134,9 +136,7 @@ class QuickGame2_Sequel {
         this.previousRAF_ = t;
       }
 
-      setTimeout(() => {
-        this.RAF_();
-      }, 1);
+      this.RAF_();
     });
   }
 
@@ -156,11 +156,12 @@ class QuickGame2_Sequel {
 let _APP = null;
 
 window.addEventListener('DOMContentLoaded', () => {
+  initTouchControls();
   const _Setup = () => {
     Ammo().then(function(AmmoLib) {
       Ammo = AmmoLib;
       _APP = new QuickGame2_Sequel();
-    }); 
+    });
     document.body.removeEventListener('click', _Setup);
   };
   document.body.addEventListener('click', _Setup);
