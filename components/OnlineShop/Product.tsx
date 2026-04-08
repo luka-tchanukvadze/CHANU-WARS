@@ -8,6 +8,7 @@ import { type ReactElement, memo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShoppingCart, Zap } from "lucide-react";
+import styles from "./Product.module.css";
 
 type PropsType = {
   product: ProductType;
@@ -34,8 +35,8 @@ const Product = ({
     >
       <div className="relative">
         <Image
-          width={5000}
-          height={5000}
+          width={400}
+          height={300}
           src={`${product.sku}`}
           alt={product.name}
           className="w-full h-48 object-cover"
@@ -50,13 +51,6 @@ const Product = ({
               damping: 25,
             }}
             className="absolute inset-0 bg-gradient-to-br from-cyan-900/80 via-blue-900/70 to-indigo-900/80 flex items-center justify-center"
-            style={{
-              backgroundImage: `
-                radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.1) 0%, transparent 50%),
-                linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.05) 50%, transparent 100%)
-              `,
-            }}
           >
             {/* Holographic scan lines */}
             <div className="absolute inset-0 opacity-30">
@@ -74,45 +68,21 @@ const Product = ({
 
             {/* Central hologram panel */}
             <div className="relative z-0 flex flex-col items-center space-y-1 sm:space-y-2">
-              <motion.div
-                animate={{
-                  boxShadow: [
-                    "0 0 20px rgba(0, 255, 255, 0.5)",
-                    "0 0 30px rgba(0, 255, 255, 0.8)",
-                    "0 0 20px rgba(0, 255, 255, 0.5)",
-                  ],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-                className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm border border-cyan-400/40 rounded-lg p-2 sm:p-3"
+              <div
+                className={`bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm border border-cyan-400/40 rounded-lg p-2 sm:p-3 ${styles.glowPulse}`}
               >
                 <Zap
                   className="w-4 h-4 sm:w-6 sm:h-6 text-cyan-300"
                   strokeWidth={2}
                 />
-              </motion.div>
+              </div>
 
               <div className="bg-black/40 backdrop-blur-sm border border-cyan-400/30 rounded px-2 py-0.5 sm:px-3 sm:py-1">
-                <motion.span
-                  animate={{
-                    textShadow: [
-                      "0 0 10px rgba(0, 255, 255, 0.8)",
-                      "0 0 20px rgba(0, 255, 255, 1)",
-                      "0 0 10px rgba(0, 255, 255, 0.8)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                  }}
-                  className="text-cyan-300 font-mono text-[10px] sm:text-xs tracking-wider uppercase"
+                <span
+                  className={`text-cyan-300 font-mono text-[10px] sm:text-xs tracking-wider uppercase ${styles.textPulse}`}
                 >
                   ACQUIRED
-                </motion.span>
+                </span>
               </div>
             </div>
 

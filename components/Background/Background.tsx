@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
 import { useState, useEffect, memo } from "react";
+import styles from "./Background.module.css";
 
 interface Star {
   top: string;
@@ -10,24 +10,17 @@ interface Star {
 }
 
 const Background: React.FC = () => {
-  const starVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    show: { opacity: 1, scale: 1 },
-  };
-
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const generateStars = (): Star[] => {
-      return [...Array(100)].map(() => ({
+    setStars(
+      [...Array(100)].map(() => ({
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         delay: Math.random() * 2,
         duration: Math.random() * 1 + 0.5,
-      }));
-    };
-
-    setStars(generateStars());
+      }))
+    );
   }, []);
 
   return (
@@ -35,21 +28,14 @@ const Background: React.FC = () => {
       <div className="min-h-screen bg-black overflow-hidden">
         <div className="fixed inset-0 overflow-hidden">
           {stars.map((star, i) => (
-            <motion.div
+            <div
               key={i}
-              className="absolute w-1 h-1 bg-yellow-300 rounded-full"
-              variants={starVariants}
-              initial="hidden"
-              animate="show"
-              transition={{
-                delay: star.delay,
-                duration: star.duration,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
+              className={`absolute w-1 h-1 bg-yellow-300 rounded-full ${styles.star}`}
               style={{
                 top: star.top,
                 left: star.left,
+                animationDelay: `${star.delay}s`,
+                animationDuration: `${star.duration}s`,
               }}
             />
           ))}

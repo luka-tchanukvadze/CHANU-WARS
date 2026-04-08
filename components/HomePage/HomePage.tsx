@@ -250,7 +250,7 @@ const HomePage: React.FC = () => {
                       i === 2 ? "w-full md:w-1/2 xl:w-full sm:w-full" : "w-full"
                     }`}
                   >
-                    <MemoizedGridCard {...card} />
+                    <GridCard {...card} />
                   </div>
                 </motion.div>
               ))}
@@ -298,7 +298,6 @@ const GridCard: React.FC<{
             "inset 0 0 20px rgba(255,215,0,0.1), 0 0 20px rgba(255,215,0,0.3)",
         }}
         whileHover={{
-          borderColor: "rgba(255, 215, 0, 0.8)",
           boxShadow:
             "inset 0 0 25px rgba(255,215,0,0.15), 0 0 30px rgba(255,215,0,0.4)",
         }}
@@ -380,6 +379,4 @@ const GridCard: React.FC<{
 
 GridCard.displayName = "GridCard";
 
-// Memoized version of GridCard
-const MemoizedGridCard = memo(GridCard);
 export default HomePage;
