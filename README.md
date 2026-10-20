@@ -1,6 +1,8 @@
 ## live version: https://chanu-wars.vercel.app/
 ## backend API: https://github.com/luka-tchanukvadze/CHANU-WARS-BACK
 
+**Screenshots:** images of the live version are at the end of this README, see [Sneak Peek](#sneak-peek).
+
 🌌 CHANU WARS: The Ultimate Star Wars Experience
 - Welcome to CHANU WARS, the project where your love for Star Wars meets creativity and technology. 🚀 This isn't just another project, it's a massive, ever-evolving Star Wars universe in the making. Whether you're a die-hard fan or someone who's just curious, this project is here to inspire you to dive deep into the Star Wars saga and maybe even create something of your own.
 
@@ -40,3 +42,17 @@ retired. Either way, please reach out and I will bring it back, I would much
 rather hear about it than have it sit broken. Contact details are on my
 [LinkedIn](https://www.linkedin.com/in/luka-tchanukvadze-600211257), and issues
 on this repo are welcome too.
+
+## Sneak Peek
+
+Screenshots of the live version. The real project does more than what is shown here, and if the live demo has issues before I get a chance to fix it, you can still take a look here.
+
+![Title screen](screenshots/01-title.png)
+
+![Home](screenshots/02-home.png)
+
+![Character details in the lore wiki](screenshots/03-character-details.png)
+
+![Galactic Marketplace shop](screenshots/04-shop.png)
+
+![Starship battle game](screenshots/05-game.png)
